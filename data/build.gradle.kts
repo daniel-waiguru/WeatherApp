@@ -2,10 +2,11 @@
 plugins {
     id("weatherapp.android.library")
     id("weatherapp.android.hilt")
+    id("weatherapp.android.room")
 }
 
 android {
-    namespace = "com.danielwaiguru.shoppy.data"
+    namespace = "com.danielwaiguru.weatherapp.data"
     buildFeatures {
         buildConfig = true
     }

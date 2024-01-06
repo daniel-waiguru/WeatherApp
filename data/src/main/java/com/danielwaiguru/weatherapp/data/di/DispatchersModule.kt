@@ -12,11 +12,9 @@ import kotlinx.coroutines.Dispatchers
 @Module
 @InstallIn(SingletonComponent::class)
 object DispatchersModule {
-    @Provides
-    @Dispatcher(DispatcherProvider.IO)
+    @[Provides Dispatcher(DispatcherProvider.IO)]
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
-    @Provides
-    @Dispatcher(DispatcherProvider.MAIN)
+    @[Provides Dispatcher(DispatcherProvider.MAIN)]
     fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 }

@@ -1,12 +1,19 @@
 package com.danielwaiguru.weatherapp.data.models.dtos
 
+import com.squareup.moshi.Json
+
 data class Main(
-    val feels_like: Double,
-    val grnd_level: Int,
+    @field:Json(name = "feels_like")
+    val feelsLike: Double,
+    @field:Json(name = "grnd_level")
+    val groundLevel: Int,
     val humidity: Int,
     val pressure: Int,
-    val sea_level: Int,
+    @field:Json(name = "sea_level")
+    val seaLevel: Int,
     val temp: Double,
-    val temp_max: Double,
-    val temp_min: Double
+    @field:Json(name = "temp_max")
+    val tempMax: Double,
+    @field:Json(name = "temp_min")
+    val tempMin: Double
 )

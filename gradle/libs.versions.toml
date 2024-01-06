@@ -37,6 +37,7 @@ shimmer = "0.5.0"
 googleAccompanist = "0.25.0"
 ktlint = "11.5.1"
 spotless = "6.21.0"
+room = "2.6.1"
 targetSdk = "34"
 compileSdk = "34"
 minSdk = "24"
@@ -73,6 +74,11 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit"}
 retrofit-moshi-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit"}
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp"}
+
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
 
 chucker-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker"}
 chucker = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker"}
@@ -134,3 +140,4 @@ compose = [
     "androidx-navigation-compose"
 ]
 compose-testing-manifest = ["ui-tooling", "ui-test-manifest"]
+room = ["room-ktx", "room-runtime"]

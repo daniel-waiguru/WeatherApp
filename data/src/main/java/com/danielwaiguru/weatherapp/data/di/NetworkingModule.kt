@@ -3,7 +3,7 @@ package com.danielwaiguru.weatherapp.data.di
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.danielwaiguru.shoppy.data.BuildConfig
+import com.danielwaiguru.weatherapp.data.BuildConfig
 import com.danielwaiguru.weatherapp.data.sources.remote.api.WeatherAppApiService
 import com.danielwaiguru.weatherapp.data.sources.remote.interceptors.HeadersInterceptor
 import com.danielwaiguru.weatherapp.data.sources.remote.utils.ApiEndpoints.BASE_URL
@@ -25,8 +25,7 @@ import javax.inject.Singleton
 internal object NetworkingModule {
     private const val REQUEST_TIMEOUT_S = 20L
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     internal fun provideHttpClient(
         @ApplicationContext appContext: Context
     ): OkHttpClient {
@@ -57,8 +56,7 @@ internal object NetworkingModule {
             .build()
     }
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     internal fun provideConverterFactory(): MoshiConverterFactory =
         MoshiConverterFactory.create().apply {
             asLenient()
@@ -66,8 +64,7 @@ internal object NetworkingModule {
             withNullSerialization()
         }
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
@@ -79,8 +76,7 @@ internal object NetworkingModule {
             .build()
     }
 
-    @Singleton
-    @Provides
+    @[Singleton Provides]
     internal fun apiServiceBuilder(retrofit: Retrofit): WeatherAppApiService {
         return retrofit.create(WeatherAppApiService::class.java)
     }
