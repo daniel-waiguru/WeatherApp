@@ -6,4 +6,5 @@ plugins {
 dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.javax)
+    implementation(libs.retrofit.moshi.converter)
 }
