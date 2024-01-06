@@ -1,8 +1,8 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.danielwaiguru.shoppy.convention.configureKotlinAndroid
-import com.danielwaiguru.shoppy.convention.configurePrintApksTask
+import com.danielwaiguru.weatherapp.convention.configureKotlinAndroid
+import com.danielwaiguru.weatherapp.convention.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -22,7 +22,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig {
-                    targetSdk = 34
                     consumerProguardFiles("consumer-rules.pro")
                 }
             }

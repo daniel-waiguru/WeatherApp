@@ -11,8 +11,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("shoppy.android.library")
-                apply("shoppy.android.hilt")
+                apply("weatherapp.android.library")
+                apply("weatherapp.android.hilt")
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             extensions.configure<LibraryExtension> {
@@ -23,7 +23,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
             dependencies {
 
-                add("implementation", project(":designsystem"))
+                //add("implementation", project(":designsystem"))
                 add("implementation", project(":data"))
                 add("implementation", project(":domain"))
 
