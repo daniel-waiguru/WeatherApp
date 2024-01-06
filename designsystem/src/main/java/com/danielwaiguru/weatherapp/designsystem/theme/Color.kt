@@ -1,4 +1,4 @@
-package com.danielwaiguru.weatherapp.ui.theme
+package com.danielwaiguru.weatherapp.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

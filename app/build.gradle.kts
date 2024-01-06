@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(project(":presentation"))
+    implementation(project(":designsystem"))
     debugImplementation(libs.leakcanary.android)
     implementation(libs.core.ktx)
     implementation(libs.timber)

@@ -1,4 +1,4 @@
-package com.danielwaiguru.weatherapp.ui.theme
+package com.danielwaiguru.weatherapp.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
@@ -65,6 +65,7 @@ fun WeatherAppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        shapes = Shapes,
         content = content
     )
 }

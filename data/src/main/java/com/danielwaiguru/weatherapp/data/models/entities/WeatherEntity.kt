@@ -1,5 +1,6 @@
 package com.danielwaiguru.weatherapp.data.models.entities
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,6 +10,7 @@ data class WeatherEntity(
     val icon: String,
     @PrimaryKey(autoGenerate = false)
     val id: Int,
+    @Embedded
     val coordinates: CoordinatesEntity,
     val city: String,
     val country: String,
