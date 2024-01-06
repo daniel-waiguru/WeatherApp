@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -18,3 +19,4 @@ include(":app")
 include(":data")
 include(":presentation")
 include(":domain")
+include(":buildlogic:convention")
