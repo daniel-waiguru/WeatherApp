@@ -12,9 +12,10 @@ import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
-internal class AndroidLocationService(
+internal class AndroidLocationService @Inject constructor(
     @ApplicationContext private val context: Context,
 ): LocationService {
     private val locationManager by lazy {

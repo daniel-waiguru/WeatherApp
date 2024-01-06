@@ -4,12 +4,11 @@ import com.squareup.moshi.Json
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val data: T) : ResultWrapper<T>()
-    data class Error<out T>(
-        val errorMessage: String?,
-        val data: T? = null
-    ) : ResultWrapper<T>()
+    data class Error(
+        val errorMessage: String?
+    ) : ResultWrapper<Nothing>()
 
-    data class Loading<out T>(val data: T? = null) : ResultWrapper<T>()
+    data object Loading : ResultWrapper<Nothing>()
 }
 
 data class ErrorResponse(

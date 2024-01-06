@@ -5,6 +5,7 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.danielwaiguru.weatherapp.data.BuildConfig
 import com.danielwaiguru.weatherapp.data.sources.remote.api.WeatherAppApiService
+import com.danielwaiguru.weatherapp.data.sources.remote.interceptors.AppIdInterceptor
 import com.danielwaiguru.weatherapp.data.sources.remote.interceptors.HeadersInterceptor
 import com.danielwaiguru.weatherapp.data.sources.remote.utils.ApiEndpoints.BASE_URL
 import dagger.Module
@@ -45,6 +46,7 @@ internal object NetworkingModule {
         return OkHttpClient.Builder()
             .readTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
             .connectTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
+            .addInterceptor(AppIdInterceptor())
             .addInterceptor(HeadersInterceptor())
             .addInterceptor(logging)
             .addInterceptor(chuckerInterceptor)

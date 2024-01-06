@@ -13,8 +13,8 @@ class GetCurrentWeatherUseCase(
 ) {
     suspend operator fun invoke(): Flow<ResultWrapper<Weather?>> {
         val userLocation = locationService.getCurrentLocation()
-        return if (userLocation is ResultWrapper.Success && userLocation.value != null) {
-            weatherRepository.getCurrentWeather(userLocation.value)
+        return if (userLocation is ResultWrapper.Success && userLocation.data != null) {
+            weatherRepository.getCurrentWeather(userLocation.data)
         } else {
             flowOf(
                 ResultWrapper.Error(

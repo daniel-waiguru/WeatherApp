@@ -41,14 +41,12 @@ class WeatherViewModel @Inject constructor(
                             currentState.copy(
                                 isLoading = false,
                                 errorMessage = result.errorMessage,
-                                currentWeather = result.data
                             )
                         }
                         is ResultWrapper.Loading -> _currentWeatherUIState.update { currentState ->
                             currentState.copy(
-                                isLoading = result.data != null,
-                                errorMessage = null,
-                                currentWeather = result.data
+                                isLoading = true,
+                                errorMessage = null
                             )
                         }
                         is ResultWrapper.Success -> _currentWeatherUIState.update { currentState ->
