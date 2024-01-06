@@ -20,7 +20,7 @@ internal class RoomDataSource @Inject constructor(
     private val weatherDao: WeatherDao
 ): LocalDataSource {
     override suspend fun saveWeather(weatherEntity: WeatherEntity) {
-        weatherDao.saveWeather(weatherEntity)
+        weatherDao.upsertCurrentWeather(weatherEntity)
     }
 
     override fun getCurrentWeather(): Flow<WeatherEntity?> {

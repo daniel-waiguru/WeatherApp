@@ -2,7 +2,6 @@ package com.danielwaiguru.weatherapp.data.models.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.danielwaiguru.weatherapp.domain.models.Coordinates
 
 @Entity(tableName = "current_weather")
 data class WeatherEntity(
@@ -10,9 +9,12 @@ data class WeatherEntity(
     val icon: String,
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    val coordinates: Coordinates,
-    val city: CityEntity,
-    val temperature: TemperatureEntity,
+    val coordinates: CoordinatesEntity,
+    val city: String,
+    val country: String,
+    val temp: Double,
+    val tempMin: Double,
+    val tempMax: Double,
     val date: Long,
     val lastUpdateAt: Long
 ) {

@@ -8,7 +8,7 @@ sealed class ResultWrapper<out T> {
         val errorMessage: String?
     ) : ResultWrapper<Nothing>()
 
-    data object Loading : ResultWrapper<Nothing>()
+    data class Loading<out T>(val value: T? = null) : ResultWrapper<T>()
 }
 
 data class ErrorResponse(

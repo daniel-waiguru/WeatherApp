@@ -16,7 +16,7 @@ data class WeatherDto(
     @field:Json(name = "coord")
     val coordinates: CoordinatesDto,
     @field:Json(name = "dt")
-    val date: Int,
+    val date: Long,
     val id: Int,
     val main: Main,
     val name: String,
