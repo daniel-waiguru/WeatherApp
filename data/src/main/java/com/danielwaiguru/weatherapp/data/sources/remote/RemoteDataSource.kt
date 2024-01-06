@@ -1,22 +1,28 @@
-package com.danielwaiguru.shoppy.data.sources.remote
+package com.danielwaiguru.weatherapp.data.sources.remote
 
-import com.danielwaiguru.shoppy.data.models.responses.ProductResponse
-import com.danielwaiguru.shoppy.data.models.responses.ProductsResponse
+import com.danielwaiguru.weatherapp.data.models.responses.ForecastResponse
+import com.danielwaiguru.weatherapp.data.models.responses.WeatherResponse
 import com.danielwaiguru.weatherapp.data.sources.remote.api.WeatherAppApiService
 import javax.inject.Inject
 
 interface RemoteDataSource {
-    suspend fun getProducts(): ProductsResponse
+    suspend fun getCurrentWeather(
+        latitude: Double,
+        longitude: Double
+    ): WeatherResponse
 
-    suspend fun getProductById(productId: Int): ProductResponse
+    suspend fun getWeatherForecast(
+        latitude: Double,
+        longitude: Double
+    ): ForecastResponse
 }
 
 internal class RetrofitDataSource @Inject constructor(
     private val apiService: WeatherAppApiService
 ) : RemoteDataSource {
-    override suspend fun getProducts(): ProductsResponse =
-        apiService.getProducts()
+    override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherResponse =
+        apiService.getCurrentWeather(latitude, longitude)
 
-    override suspend fun getProductById(productId: Int): ProductResponse =
-        apiService.getProductById(productId)
+    override suspend fun getWeatherForecast(latitude: Double, longitude: Double): ForecastResponse =
+        apiService.getWeatherForecast(latitude, longitude)
 }
