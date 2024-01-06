@@ -12,6 +12,7 @@ activity-compose = "1.8.2"
 compose-bom = "2023.10.01"
 androidxComposeCompiler = "1.5.7"
 appcompat = "1.6.1"
+lottieCompose = "5.2.0"
 material = "1.11.0"
 hilt = "2.48.1"
 hiltExt = "1.1.0"
@@ -47,6 +48,7 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroid" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -61,6 +63,7 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "googleAccompanist" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "googleAccompanist" }
 
 coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }

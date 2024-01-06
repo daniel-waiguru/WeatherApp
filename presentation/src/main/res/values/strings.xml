@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="grant_permissions">Grant Location Permissions</string>
+    <string name="location_permission">Weather App requires location permissions to be able to show weather information for your location. Please grant permissions to be able to use this app.</string>
+    <string name="get_started">Get Started</string>
+</resources>
