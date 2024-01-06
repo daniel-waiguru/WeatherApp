@@ -8,7 +8,7 @@ import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.sources.local.LocalDataSource
 import com.danielwaiguru.weatherapp.data.sources.remote.RemoteDataSource
 import com.danielwaiguru.weatherapp.data.utils.networkBoundResource
-import com.danielwaiguru.weatherapp.domain.models.Coordinates
+import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 import com.danielwaiguru.weatherapp.domain.repositories.WeatherRepository
@@ -28,7 +28,7 @@ internal class WeatherRepositoryImpl(
     @Dispatcher(DispatcherProvider.IO) private val ioDispatcher: CoroutineDispatcher
 ): WeatherRepository {
     override suspend fun getCurrentWeather(
-        coordinates: Coordinates
+        userLocation: UserLocation
     ): Flow<ResultWrapper<Weather?>> = networkBoundResource(
         query = {
                 localDataSource.getCurrentWeather()
@@ -36,8 +36,8 @@ internal class WeatherRepositoryImpl(
         },
         fetch = {
             remoteDataSource.getCurrentWeather(
-                longitude = coordinates.longitude,
-                latitude = coordinates.latitude
+                longitude = userLocation.longitude,
+                latitude = userLocation.latitude
             )
         },
         saveFetchResult = { weatherResponse ->
@@ -49,7 +49,7 @@ internal class WeatherRepositoryImpl(
     ).flowOn(ioDispatcher)
 
     override suspend fun getWeatherForecast(
-        coordinates: Coordinates
+        userLocation: UserLocation
     ): Flow<ResultWrapper<List<WeatherForecast>>> = networkBoundResource(
         query = {
             localDataSource.getWeatherForecast()
@@ -58,8 +58,8 @@ internal class WeatherRepositoryImpl(
         },
         fetch = {
             remoteDataSource.getWeatherForecast(
-                latitude = coordinates.latitude,
-                longitude = coordinates.longitude
+                latitude = userLocation.latitude,
+                longitude = userLocation.longitude
             )
         },
         saveFetchResult = { forecastResponse ->

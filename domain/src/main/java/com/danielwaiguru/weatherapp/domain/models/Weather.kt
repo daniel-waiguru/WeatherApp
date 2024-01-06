@@ -4,7 +4,7 @@ data class Weather(
     val description: String,
     val icon: String,
     val id: Int,
-    val coordinates: Coordinates,
+    val userLocation: UserLocation,
     val city: String,
     val country: String,
     val temp: Double,

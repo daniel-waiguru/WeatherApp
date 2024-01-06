@@ -6,11 +6,11 @@ import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
 import com.danielwaiguru.weatherapp.data.models.responses.ForecastResponse
 import com.danielwaiguru.weatherapp.data.models.responses.WeatherDto
-import com.danielwaiguru.weatherapp.domain.models.Coordinates
+import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 
-fun CoordinatesEntity.toCoordinates(): Coordinates = Coordinates(
+fun CoordinatesEntity.toCoordinates(): UserLocation = UserLocation(
     latitude = latitude,
     longitude = longitude
 )
@@ -24,7 +24,7 @@ fun WeatherEntity.toWeather(): Weather = Weather(
     description = description,
     icon = icon,
     id = id,
-    coordinates = coordinates.toCoordinates(),
+    userLocation = coordinates.toCoordinates(),
     city = city,
     country = country,
     temp = temp,

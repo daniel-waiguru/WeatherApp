@@ -3,6 +3,7 @@ package com.danielwaiguru.weatherapp.presentation.weather.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.danielwaiguru.weatherapp.presentation.navigation.AppNavigationDestination
+import com.danielwaiguru.weatherapp.presentation.weather.WeatherRoute
 
 
 object WeatherScreenDestination: AppNavigationDestination {
@@ -14,6 +15,6 @@ object WeatherScreenDestination: AppNavigationDestination {
 
 fun NavGraphBuilder.weatherScreen() {
     composable(route = WeatherScreenDestination.route) {
-
+        WeatherRoute()
     }
 }
