@@ -1,4 +1,4 @@
-An offline first mobile app that shows a current location weather and 5-day forecast written 100% in Kotlin and Jetpack Compose using Android Jetpack Components.
+An offline-first mobile app that shows current location weather and 5-day forecast written 100% in Kotlin and Jetpack Compose using Android Jetpack Components.
 ## Prerequisites
 To use this app, make sure you accept the location permission request to grant the app your location details.
 
