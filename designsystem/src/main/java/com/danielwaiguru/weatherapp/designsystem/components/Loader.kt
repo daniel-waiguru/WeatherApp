@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.danielwaiguru.weatherapp.designsystem.testtags.TestTags
 
 @Composable
 fun ProgressIndicator(
@@ -17,7 +18,7 @@ fun ProgressIndicator(
 ) {
     CircularProgressIndicator(
         modifier = modifier
-            .testTag("progress_indicator"),
+            .testTag(TestTags.ProgressIndicator),
         color = color,
         strokeWidth = stockWidth
     )

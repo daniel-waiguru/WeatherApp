@@ -6,7 +6,7 @@ import com.danielwaiguru.weatherapp.data.sources.local.daos.WeatherDao
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-internal interface LocalDataSource {
+interface LocalDataSource {
     suspend fun saveWeather(weatherEntity: WeatherEntity)
 
     fun getCurrentWeather(): Flow<WeatherEntity?>
