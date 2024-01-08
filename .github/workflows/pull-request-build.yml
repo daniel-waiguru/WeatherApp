@@ -50,16 +50,16 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: report
-          path: app/build/reports/coverage/debug
+          path: app/build/reports/jacoco
       - name: Download Test Reports Folder
         uses: actions/download-artifact@v2
         with:
           name: report
-          path: app/build/reports/coverage/debug
+          path: app/build/reports/jacoco
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: "app/build/reports/coverage/debug/report.xml"
+          files: "app/build/reports/jacoco/debug/jacoco.xml"
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

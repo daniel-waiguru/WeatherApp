@@ -40,7 +40,9 @@ internal fun Project.configureJacoco(
 
             reports {
                 xml.required.set(true)
+                xml.outputLocation.set(file("${project.layout.buildDirectory.get()}/reports/jacoco/jacoco.xml"))
                 html.required.set(true)
+                html.outputLocation.set(project.layout.buildDirectory.dir("reports/jacoco").get())
             }
 
             classDirectories.setFrom(
