@@ -38,7 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.danielwaiguru.weatherapp.designsystem.components.ProgressIndicator
 import com.danielwaiguru.weatherapp.designsystem.previews.DevicePreviews
 import com.danielwaiguru.weatherapp.designsystem.theme.WeatherAppTheme
-import com.danielwaiguru.weatherapp.designsystem.utils.SpDimensions
+import com.danielwaiguru.weatherapp.designsystem.utils.Dimensions
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 import com.danielwaiguru.weatherapp.presentation.R
@@ -160,7 +160,7 @@ fun WeatherForecastComponent(
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement
-            .spacedBy(SpDimensions.PaddingMedium)
+            .spacedBy(Dimensions.PaddingMedium)
     ) {
         items(forecasts, key = { it.id }) { forecast ->
             ForecastItem(
@@ -250,7 +250,7 @@ private fun CurrentWeatherComponent(
             modifier = Modifier
                 .align(Alignment.Center)
                 .fillMaxSize()
-                .padding(SpDimensions.PaddingMedium),
+                .padding(Dimensions.PaddingMedium),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -274,7 +274,16 @@ private fun CurrentWeatherComponent(
             text = "Last Updated: ${DateUtils.toFormattedDate(weather.lastUpdateAt)}",
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(bottom = SpDimensions.PaddingLarge, start = SpDimensions.PaddingMedium),
+                .padding(bottom = Dimensions.PaddingLarge, start = Dimensions.PaddingMedium),
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+        Text(
+            text = "${weather.city}, ${weather.country}",
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.TopCenter)
+                .padding(top = Dimensions.PaddingLarge),
             color = MaterialTheme.colorScheme.onPrimary
         )
     }

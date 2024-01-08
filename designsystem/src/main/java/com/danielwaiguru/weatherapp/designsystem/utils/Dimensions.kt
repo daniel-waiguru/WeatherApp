@@ -3,7 +3,7 @@ package com.danielwaiguru.weatherapp.designsystem.utils
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-object SpDimensions {
+object Dimensions {
     val HeadlineLarge = 24.sp
     val HeadlineMedium = 18.sp
     val TitleLarge = 18.sp
