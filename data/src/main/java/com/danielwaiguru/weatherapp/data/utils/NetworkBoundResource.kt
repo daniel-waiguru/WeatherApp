@@ -17,7 +17,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
     if (shouldFetch(data)) {
         val loading = launch {
-            query().collect { send(ResultWrapper.Loading) }
+            query().collect { send(ResultWrapper.Loading(data = data)) }
         }
 
         try {
@@ -27,7 +27,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
             query().collect { send(ResultWrapper.Success(it)) }
         } catch (t: Throwable) {
             loading.cancel()
-            query().collect { send(ResultWrapper.Error(errorMessage = t.message)) }
+            query().collect { send(ResultWrapper.Error(errorMessage = t.message, data = data)) }
         }
     } else {
         query().collect { send(ResultWrapper.Success(it)) }

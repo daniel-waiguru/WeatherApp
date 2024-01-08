@@ -14,9 +14,17 @@ class GetWeatherForecastUseCase(
         return weatherRepository.getWeatherForecast(userLocation)
             .map { result ->
                 when(result) {
-                    is ResultWrapper.Error, ResultWrapper.Loading -> result
+                    is ResultWrapper.Error -> {
+                        ResultWrapper.Error(
+                            data = result.data?.distinctBy { it.day },
+                            errorMessage = result.errorMessage
+                        )
+                    }
+                    is ResultWrapper.Loading -> {
+                        ResultWrapper.Loading(data = result.data?.distinctBy { it.day })
+                    }
                     is ResultWrapper.Success -> {
-                        ResultWrapper.Success(result.data.distinctBy { it.day })
+                        ResultWrapper.Success(result.data?.distinctBy { it.day } ?: emptyList())
                     }
                 }
             }
