@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "addd6c33dd48f6c3dcf0b294b6caa729",
+    "identityHash": "ca1cb6d48bf56cefa11a6ab97f65bce2",
     "entities": [
       {
         "tableName": "current_weather",
@@ -98,19 +98,13 @@
       },
       {
         "tableName": "weather_forecast",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `date` INTEGER NOT NULL, `temp` REAL NOT NULL, `main` TEXT NOT NULL, `lastUpdatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `date` INTEGER NOT NULL, `temp` REAL NOT NULL, `conditionId` INTEGER NOT NULL)",
         "fields": [
-          {
-            "fieldPath": "icon",
-            "columnName": "icon",
-            "affinity": "TEXT",
-            "notNull": true
-          },
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "date",
@@ -125,20 +119,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "main",
-            "columnName": "main",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastUpdatedAt",
-            "columnName": "lastUpdatedAt",
+            "fieldPath": "conditionId",
+            "columnName": "conditionId",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -150,7 +138,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'addd6c33dd48f6c3dcf0b294b6caa729')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca1cb6d48bf56cefa11a6ab97f65bce2')"
     ]
   }
 }

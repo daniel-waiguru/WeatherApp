@@ -28,7 +28,7 @@ internal class RoomDataSource @Inject constructor(
     }
 
     override suspend fun saveWeatherForecast(forecasts: List<ForecastEntity>) {
-        weatherDao.saveWeatherForecast(forecasts)
+        weatherDao.upsertForecasts(forecasts)
     }
 
     override fun getWeatherForecast(): Flow<List<ForecastEntity>> {

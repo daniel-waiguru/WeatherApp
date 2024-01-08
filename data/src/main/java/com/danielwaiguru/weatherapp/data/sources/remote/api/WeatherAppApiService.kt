@@ -11,11 +11,13 @@ interface WeatherAppApiService {
     @GET(CURRENT_WEATHER_ENDPOINT)
     suspend fun getCurrentWeather(
         @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double
+        @Query("lon") longitude: Double,
+        @Query("units") units: String = "metric"
     ): WeatherDto
     @GET(WEATHER_FORECAST_ENDPOINT)
     suspend fun getWeatherForecast(
         @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double
+        @Query("lon") longitude: Double,
+        @Query("units") units: String = "metric"
     ): ForecastResponse
 }

@@ -12,5 +12,5 @@ object SpDimensions {
     val BodyLarge = 16.sp
     val BodySmall = 12.sp
     val PaddingMedium = 16.dp
-    val PaddingLarge = 26.dp
+    val PaddingLarge = 30.dp
 }

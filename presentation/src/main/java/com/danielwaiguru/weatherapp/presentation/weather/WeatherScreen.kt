@@ -29,8 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.danielwaiguru.weatherapp.designsystem.components.ProgressIndicator
@@ -102,7 +104,7 @@ fun WeatherScreen(
                         weatherCondition = weatherCondition,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.4f)
+                            .fillMaxHeight(0.45f)
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -165,7 +167,7 @@ fun WeatherForecastComponent(
                 forecast = forecast,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
+                    .padding(horizontal = 10.dp)
             )
         }
     }
@@ -176,16 +178,8 @@ private fun ForecastItem(
     modifier: Modifier = Modifier,
     forecast: WeatherForecast
 ) {
-    //°C
-    val iconRes by remember(forecast.main) {
-        derivedStateOf {
-            when(forecast.main) {
-                "Rain" -> R.drawable.rain
-                "Clouds" -> R.drawable.partlysunny
-                "Sun" -> R.drawable.clear
-                else -> R.drawable.rain
-            }
-        }
+    val weatherCondition by remember(forecast.conditionId) {
+        derivedStateOf { forecast.conditionId.getWeatherCondition() }
     }
     Row(
         modifier = modifier,
@@ -195,19 +189,25 @@ private fun ForecastItem(
         Text(
             text = forecast.day,
             color = MaterialTheme.colorScheme.onPrimary,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .weight(1f)
         )
         Image(
-            painter = painterResource(id = iconRes),
-            contentDescription = forecast.main,
+            painter = painterResource(id = weatherCondition.iconId),
+            contentDescription = stringResource(id = weatherCondition.nameId),
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .size(30.dp),
+                .size(30.dp)
+                .weight(1f)
 
         )
         Text(
             text = "${forecast.temp}°C",
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary,
+            textAlign = TextAlign.End,
+            modifier = Modifier
+                .weight(1f)
         )
     }
 }
@@ -218,13 +218,11 @@ fun ForecastItemPreview() {
     WeatherAppTheme {
         ForecastItem(
             forecast = WeatherForecast(
-                icon = "voluptaria",
                 id = 3406,
                 date = 1444,
                 temp = 6.7,
                 day = "fabellas",
-                main = "Rain",
-                lastUpdatedAt = 4667
+                conditionId = 600,
             ),
             modifier = Modifier
                 .fillMaxWidth()
@@ -257,15 +255,18 @@ private fun CurrentWeatherComponent(
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "${weather.temp}°",
+                text = "${weather.temp}°C",
                 color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = stringResource(weatherCondition.nameId),
+                text = weatherCondition.name,
                 color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 25.sp
+                ),
                 textAlign = TextAlign.Center
             )
         }
@@ -273,7 +274,7 @@ private fun CurrentWeatherComponent(
             text = "Last Updated: ${DateUtils.toFormattedDate(weather.lastUpdateAt)}",
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(bottom = SpDimensions.PaddingLarge),
+                .padding(bottom = SpDimensions.PaddingLarge, start = SpDimensions.PaddingMedium),
             color = MaterialTheme.colorScheme.onPrimary
         )
     }
@@ -286,14 +287,13 @@ private fun TempItem(
     text: String,
     modifier: Modifier = Modifier
 ) {
-    val tempText = "$temp\u00B0"
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = tempText,
+            text = "$temp°C",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onPrimary
