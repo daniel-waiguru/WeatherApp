@@ -46,5 +46,14 @@ gradlePlugin {
             id = "weatherapp.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+
+        register("androidApplicationJacoco") {
+            id = "weatherapp.android.application.jacoco"
+            implementationClass = "AndroidApplicationJacocoConventionPlugin"
+        }
+        register("androidLibraryJacoco") {
+            id = "weatherapp.android.library.jacoco"
+            implementationClass = "AndroidLibraryJacocoConventionPlugin"
+        }
     }
 }

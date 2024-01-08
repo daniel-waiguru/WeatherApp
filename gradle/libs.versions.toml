@@ -44,6 +44,7 @@ compileSdk = "34"
 minSdk = "24"
 playServicesLocation = "21.0.1"
 androidDesugarJdkLibs = "2.0.4"
+jacoco = "0.8.7"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -132,6 +133,10 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint"}
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+# Plugins defined by this project
+weatherapp-android-application-jacoco = { id = "weatherapp.android.application.jacoco", version = "unspecified" }
+weatherapp-android-library-jacoco = { id = "weatherapp.android.library.jacoco", version = "unspecified" }
 
 [bundles]
 network = ["retrofit-core", "retrofit-moshi-converter", "okhttp-logging"]

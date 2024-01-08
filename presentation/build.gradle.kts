@@ -1,6 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("weatherapp.android.feature")
+    alias(libs.plugins.weatherapp.android.library.jacoco)
     id("weatherapp.android.library.compose")
 }
 

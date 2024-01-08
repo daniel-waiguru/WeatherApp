@@ -2,10 +2,11 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.weatherapp.android.application.jacoco)
+    id("jacoco")
     id("weatherapp.android.hilt")
     id("weatherapp.android.application.compose")
 }
-
 android {
     namespace = "com.danielwaiguru.weatherapp"
     compileSdk = libs.versions.compileSdk.get().toInt()

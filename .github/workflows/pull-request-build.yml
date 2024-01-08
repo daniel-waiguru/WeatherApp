@@ -34,11 +34,32 @@ jobs:
         run: ./gradlew ktlintCheck
 
       - name: Run Unit Tests
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest
 
       - name: Run debug Build
         run: ./gradlew assembleDebug
+
+      - name: Upload test results (XML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/build/test-results/test*UnitTest/**.xml'
+
+      - name: Generate Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: report
+          path: app/build/reports/coverage/debug
+      - name: Download Test Reports Folder
+        uses: actions/download-artifact@v2
+        with:
+          name: report
+          path: app/build/reports/coverage/debug
+
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: "app/build/reports/coverage/debug/report.xml"
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
