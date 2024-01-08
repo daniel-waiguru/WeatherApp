@@ -9,6 +9,9 @@ import com.danielwaiguru.weatherapp.data.models.responses.WeatherDto
 import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 fun CoordinatesEntity.toCoordinates(): UserLocation = UserLocation(
     latitude = latitude,
@@ -27,6 +30,7 @@ fun WeatherEntity.toWeather(): Weather = Weather(
     userLocation = coordinates.toCoordinates(),
     city = city,
     country = country,
+    conditionId = conditionId,
     temp = temp,
     tempMin = tempMin,
     tempMax = tempMax,
@@ -42,6 +46,7 @@ fun ForecastResponse.toForecastEntity(): List<ForecastEntity> {
             id = weather.id,
             date = weather.date,
             temp = weather.main.temp,
+            main = weatherInfo.main,
             lastUpdatedAt = System.currentTimeMillis()
         )
     }
@@ -51,7 +56,12 @@ fun ForecastEntity.toWeatherForecast(): WeatherForecast = WeatherForecast(
     id = id,
     date = date,
     temp = temp,
-    lastUpdatedAt = lastUpdatedAt
+    day = LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(date),
+        ZoneId.systemDefault()
+    ).dayOfWeek.name,
+    lastUpdatedAt = lastUpdatedAt,
+    main = main
 )
 
 fun WeatherDto.toWeatherEntity(): WeatherEntity {
@@ -63,6 +73,7 @@ fun WeatherDto.toWeatherEntity(): WeatherEntity {
         id = id,
         coordinates = coordinates.toCoordinatesEntity(),
         country = sys.country,
+        conditionId = weatherInfo.id,
         temp = main.temp,
         tempMin = main.tempMin,
         tempMax = main.tempMax,

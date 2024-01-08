@@ -1,5 +1,6 @@
-package com.danielwaiguru.shoppy.designsystem.utils
+package com.danielwaiguru.weatherapp.designsystem.utils
 
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 object SpDimensions {
@@ -10,4 +11,6 @@ object SpDimensions {
     val BodyMedium = 14.sp
     val BodyLarge = 16.sp
     val BodySmall = 12.sp
+    val PaddingMedium = 16.dp
+    val PaddingLarge = 26.dp
 }

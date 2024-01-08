@@ -69,5 +69,5 @@ internal class WeatherRepositoryImpl @Inject constructor(
                 localDataSource.saveWeatherForecast(forecastEntity)
             }
         }
-    )
+    ).flowOn(ioDispatcher)
 }

@@ -5,5 +5,7 @@ data class WeatherForecast(
     val id: Int,
     val date: Long,
     val temp: Double,
+    val day: String,
+    val main: String,
     val lastUpdatedAt: Long
 )

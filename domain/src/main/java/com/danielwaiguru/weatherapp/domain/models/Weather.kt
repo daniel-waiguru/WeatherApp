@@ -7,6 +7,7 @@ data class Weather(
     val userLocation: UserLocation,
     val city: String,
     val country: String,
+    val conditionId: Int,
     val temp: Double,
     val tempMin: Double,
     val tempMax: Double,

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9dd3e8d8626a31c84a8a8a978d3d710a",
+    "identityHash": "addd6c33dd48f6c3dcf0b294b6caa729",
     "entities": [
       {
         "tableName": "current_weather",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`description` TEXT NOT NULL, `icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `city` TEXT NOT NULL, `country` TEXT NOT NULL, `temp` REAL NOT NULL, `tempMin` REAL NOT NULL, `tempMax` REAL NOT NULL, `date` INTEGER NOT NULL, `lastUpdateAt` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`description` TEXT NOT NULL, `icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `city` TEXT NOT NULL, `country` TEXT NOT NULL, `conditionId` INTEGER NOT NULL, `temp` REAL NOT NULL, `tempMin` REAL NOT NULL, `tempMax` REAL NOT NULL, `date` INTEGER NOT NULL, `lastUpdateAt` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "description",
@@ -36,6 +36,12 @@
             "fieldPath": "country",
             "columnName": "country",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conditionId",
+            "columnName": "conditionId",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -92,7 +98,7 @@
       },
       {
         "tableName": "weather_forecast",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `date` INTEGER NOT NULL, `temp` REAL NOT NULL, `lastUpdatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`icon` TEXT NOT NULL, `id` INTEGER NOT NULL, `date` INTEGER NOT NULL, `temp` REAL NOT NULL, `main` TEXT NOT NULL, `lastUpdatedAt` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "icon",
@@ -119,6 +125,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "main",
+            "columnName": "main",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "lastUpdatedAt",
             "columnName": "lastUpdatedAt",
             "affinity": "INTEGER",
@@ -138,7 +150,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9dd3e8d8626a31c84a8a8a978d3d710a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'addd6c33dd48f6c3dcf0b294b6caa729')"
     ]
   }
 }

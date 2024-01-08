@@ -1,8 +1,8 @@
 package com.danielwaiguru.weatherapp.data.di
 
-import com.danielwaiguru.weatherapp.domain.location.LocationService
 import com.danielwaiguru.weatherapp.domain.repositories.WeatherRepository
 import com.danielwaiguru.weatherapp.domain.usecases.GetCurrentWeatherUseCase
+import com.danielwaiguru.weatherapp.domain.usecases.GetWeatherForecastUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +15,10 @@ object UseCasesModule {
     @[Provides ViewModelScoped]
     fun provideGetCurrentWeatherUseCase(
         weatherRepository: WeatherRepository,
-        locationService: LocationService
-    ): GetCurrentWeatherUseCase = GetCurrentWeatherUseCase(weatherRepository, locationService)
+    ): GetCurrentWeatherUseCase = GetCurrentWeatherUseCase(weatherRepository)
+
+    @[Provides ViewModelScoped]
+    fun provideGetWeatherForecastUseCase(
+        weatherRepository: WeatherRepository,
+    ): GetWeatherForecastUseCase = GetWeatherForecastUseCase(weatherRepository)
 }

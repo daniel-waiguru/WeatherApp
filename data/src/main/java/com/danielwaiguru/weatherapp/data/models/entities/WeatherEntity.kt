@@ -14,20 +14,10 @@ data class WeatherEntity(
     val coordinates: CoordinatesEntity,
     val city: String,
     val country: String,
+    val conditionId: Int,
     val temp: Double,
     val tempMin: Double,
     val tempMax: Double,
     val date: Long,
     val lastUpdateAt: Long
-) {
-    data class CityEntity(
-        val id: Int,
-        val name: String,
-        val country: String
-    )
-    data class TemperatureEntity(
-        val temp: Double,
-        val tempMin: Double,
-        val tempMax: Double,
-    )
-}
+)

@@ -9,5 +9,6 @@ data class ForecastEntity(
     val id: Int,
     val date: Long,
     val temp: Double,
+    val main: String,
     val lastUpdatedAt: Long
 )
