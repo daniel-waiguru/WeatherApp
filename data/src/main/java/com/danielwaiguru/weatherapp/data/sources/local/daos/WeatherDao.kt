@@ -42,6 +42,9 @@ interface WeatherDao {
     @Query("SELECT * FROM weather_forecast")
     fun getWeatherForecast(): Flow<List<ForecastEntity>>
 
+    @Query("DELETE FROM weather_forecast")
+    suspend fun deleteAllForecasts()
+
     @Query("DELETE FROM current_weather")
     suspend fun deleteAll()
 
@@ -51,4 +54,9 @@ interface WeatherDao {
         saveWeather(weather)
     }
 
+    @Transaction
+    suspend fun upsertForecasts(forecasts: List<ForecastEntity>) {
+        deleteAllForecasts()
+        saveWeatherForecast(forecasts)
+    }
 }

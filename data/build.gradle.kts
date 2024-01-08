@@ -16,8 +16,8 @@ dependencies {
     implementation(project(":domain"))
     // Networking
     implementation(libs.bundles.network)
+    implementation(libs.play.services.location)
     // Chucker
     debugImplementation(libs.chucker.debug)
     releaseImplementation(libs.chucker)
-
 }

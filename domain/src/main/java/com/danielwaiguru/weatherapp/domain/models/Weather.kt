@@ -4,15 +4,16 @@ data class Weather(
     val description: String,
     val icon: String,
     val id: Int,
-    val coordinates: Coordinates,
+    val userLocation: UserLocation,
     val city: String,
     val country: String,
+    val conditionId: Int,
     val temp: Double,
     val tempMin: Double,
     val tempMax: Double,
     val date: Long,
     val lastUpdateAt: Long
-){
+) {
     data class City(
         val id: Int,
         val name: String,
@@ -21,7 +22,6 @@ data class Weather(
     data class Temperature(
         val temp: Double,
         val tempMin: Double,
-        val tempMax: Double,
+        val tempMax: Double
     )
 }
-

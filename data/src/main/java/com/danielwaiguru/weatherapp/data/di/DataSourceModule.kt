@@ -1,9 +1,11 @@
 package com.danielwaiguru.weatherapp.data.di
 
+import com.danielwaiguru.weatherapp.data.AndroidLocationService
 import com.danielwaiguru.weatherapp.data.sources.local.LocalDataSource
 import com.danielwaiguru.weatherapp.data.sources.local.RoomDataSource
 import com.danielwaiguru.weatherapp.data.sources.remote.RemoteDataSource
 import com.danielwaiguru.weatherapp.data.sources.remote.RetrofitDataSource
+import com.danielwaiguru.weatherapp.domain.location.LocationService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,13 +15,27 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class DataSourceModule {
-    @[Singleton Binds]
+    @[
+        Singleton
+        Binds
+    ]
     internal abstract fun bindRemoteDataSource(
         retrofitDataSource: RetrofitDataSource
     ): RemoteDataSource
 
-    @[Singleton Binds]
+    @[
+        Singleton
+        Binds
+    ]
     internal abstract fun bindLocalDataSource(
         roomDataSource: RoomDataSource
     ): LocalDataSource
+
+    @[
+        Singleton
+        Binds
+    ]
+    internal abstract fun bindLocationService(
+        androidLocationService: AndroidLocationService
+    ): LocationService
 }

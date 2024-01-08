@@ -8,13 +8,14 @@ import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.sources.local.LocalDataSource
 import com.danielwaiguru.weatherapp.data.sources.remote.RemoteDataSource
 import com.danielwaiguru.weatherapp.data.utils.networkBoundResource
-import com.danielwaiguru.weatherapp.domain.models.Coordinates
+import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 import com.danielwaiguru.weatherapp.domain.repositories.WeatherRepository
 import com.danielwaiguru.weatherapp.domain.utils.Dispatcher
 import com.danielwaiguru.weatherapp.domain.utils.DispatcherProvider
 import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
@@ -22,22 +23,22 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
-internal class WeatherRepositoryImpl(
+internal class WeatherRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     @Dispatcher(DispatcherProvider.IO) private val ioDispatcher: CoroutineDispatcher
-): WeatherRepository {
+) : WeatherRepository {
     override suspend fun getCurrentWeather(
-        coordinates: Coordinates
+        userLocation: UserLocation
     ): Flow<ResultWrapper<Weather?>> = networkBoundResource(
         query = {
-                localDataSource.getCurrentWeather()
-                    .map { weatherEntity -> weatherEntity?.toWeather() }
+            localDataSource.getCurrentWeather()
+                .map { weatherEntity -> weatherEntity?.toWeather() }
         },
         fetch = {
             remoteDataSource.getCurrentWeather(
-                longitude = coordinates.longitude,
-                latitude = coordinates.latitude
+                longitude = userLocation.longitude,
+                latitude = userLocation.latitude
             )
         },
         saveFetchResult = { weatherResponse ->
@@ -49,17 +50,16 @@ internal class WeatherRepositoryImpl(
     ).flowOn(ioDispatcher)
 
     override suspend fun getWeatherForecast(
-        coordinates: Coordinates
+        userLocation: UserLocation
     ): Flow<ResultWrapper<List<WeatherForecast>>> = networkBoundResource(
         query = {
             localDataSource.getWeatherForecast()
                 .map { entities -> entities.map(ForecastEntity::toWeatherForecast) }
-
         },
         fetch = {
             remoteDataSource.getWeatherForecast(
-                latitude = coordinates.latitude,
-                longitude = coordinates.longitude
+                latitude = userLocation.latitude,
+                longitude = userLocation.longitude
             )
         },
         saveFetchResult = { forecastResponse ->
@@ -68,5 +68,5 @@ internal class WeatherRepositoryImpl(
                 localDataSource.saveWeatherForecast(forecastEntity)
             }
         }
-    )
+    ).flowOn(ioDispatcher)
 }

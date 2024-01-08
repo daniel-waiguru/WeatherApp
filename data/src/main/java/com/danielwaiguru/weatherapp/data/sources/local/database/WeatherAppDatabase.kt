@@ -14,7 +14,7 @@ import com.danielwaiguru.weatherapp.data.sources.local.daos.WeatherDao
     version = 1,
     exportSchema = true
 )
-abstract class WeatherAppDatabase: RoomDatabase() {
+abstract class WeatherAppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
 
     companion object {

@@ -15,7 +15,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalDatabaseModule {
-    @[Provides Singleton]
+    @[
+        Provides
+        Singleton
+    ]
     internal fun provideWeatherAppDatabase(@ApplicationContext appContext: Context) =
         Room.databaseBuilder(
             appContext,
@@ -23,6 +26,9 @@ object LocalDatabaseModule {
             DB_NAME
         ).fallbackToDestructiveMigration().build()
 
-    @[Provides Singleton]
+    @[
+        Provides
+        Singleton
+    ]
     fun provideTouristDao(database: WeatherAppDatabase): WeatherDao = database.weatherDao()
 }

@@ -9,4 +9,7 @@ android {
 }
 dependencies {
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.permissions)
+    implementation(project(":designsystem"))
+    implementation(libs.lottie.compose)
 }
