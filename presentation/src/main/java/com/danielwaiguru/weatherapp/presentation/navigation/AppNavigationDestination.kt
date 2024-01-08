@@ -2,7 +2,6 @@ package com.danielwaiguru.weatherapp.presentation.navigation
 
 import androidx.annotation.StringRes
 
-
 interface AppNavigationDestination {
     /**
      * Defines a specific route this destination belongs to.

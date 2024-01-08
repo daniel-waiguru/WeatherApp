@@ -13,20 +13,23 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkingModule {
     private const val REQUEST_TIMEOUT_S = 20L
 
-    @[Singleton Provides]
+    @[
+        Singleton
+        Provides
+    ]
     internal fun provideHttpClient(
         @ApplicationContext appContext: Context
     ): OkHttpClient {
@@ -58,7 +61,10 @@ internal object NetworkingModule {
             .build()
     }
 
-    @[Singleton Provides]
+    @[
+        Singleton
+        Provides
+    ]
     internal fun provideConverterFactory(): MoshiConverterFactory =
         MoshiConverterFactory.create().apply {
             asLenient()
@@ -66,7 +72,10 @@ internal object NetworkingModule {
             withNullSerialization()
         }
 
-    @[Singleton Provides]
+    @[
+        Singleton
+        Provides
+    ]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
@@ -78,7 +87,10 @@ internal object NetworkingModule {
             .build()
     }
 
-    @[Singleton Provides]
+    @[
+        Singleton
+        Provides
+    ]
     internal fun apiServiceBuilder(retrofit: Retrofit): WeatherAppApiService {
         return retrofit.create(WeatherAppApiService::class.java)
     }

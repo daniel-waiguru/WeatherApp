@@ -39,6 +39,7 @@ fun PrimaryButton(
         )
     }
 }
+
 @DevicePreviews
 @Composable
 private fun PrimaryButtonPreview() {

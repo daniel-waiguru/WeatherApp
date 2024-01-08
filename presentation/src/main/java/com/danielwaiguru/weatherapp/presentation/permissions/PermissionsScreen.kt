@@ -42,8 +42,9 @@ fun PermissionsRoute(onNavigateToWeather: () -> Unit) {
 
 val locationPermissions = arrayOf(
     Manifest.permission.ACCESS_COARSE_LOCATION,
-    Manifest.permission.ACCESS_FINE_LOCATION,
+    Manifest.permission.ACCESS_FINE_LOCATION
 )
+
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun PermissionsScreen(

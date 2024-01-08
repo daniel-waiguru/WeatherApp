@@ -22,7 +22,7 @@ class WeatherViewModel @Inject constructor(
     private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
     private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
     private val locationService: LocationService
-): ViewModel() {
+) : ViewModel() {
     private val _currentWeatherUIState = MutableStateFlow(WeatherScreenState())
     val currentWeatherUIState: StateFlow<WeatherScreenState> = _currentWeatherUIState.asStateFlow()
 
@@ -34,7 +34,7 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             getWeatherForecastUseCase(userLocation)
                 .onEach { result ->
-                    when(result) {
+                    when (result) {
                         is ResultWrapper.Error -> _currentWeatherUIState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
@@ -57,7 +57,6 @@ class WeatherViewModel @Inject constructor(
                             )
                         }
                     }
-
                 }.launchIn(this)
         }
     }
@@ -66,7 +65,7 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             getCurrentWeatherUseCase(userLocation)
                 .onEach { result ->
-                    when(result) {
+                    when (result) {
                         is ResultWrapper.Error -> _currentWeatherUIState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
@@ -89,7 +88,6 @@ class WeatherViewModel @Inject constructor(
                             )
                         }
                     }
-
                 }.launchIn(this)
         }
     }
@@ -102,7 +100,7 @@ class WeatherViewModel @Inject constructor(
                     errorMessage = null
                 )
             }
-            when(val userLocationResult = locationService.getCurrentLocation()) {
+            when (val userLocationResult = locationService.getCurrentLocation()) {
                 is ResultWrapper.Error -> {
                     _currentWeatherUIState.update { currentState ->
                         currentState.copy(

@@ -13,7 +13,7 @@ class GetWeatherForecastUseCase(
     suspend operator fun invoke(userLocation: UserLocation): Flow<ResultWrapper<List<WeatherForecast>>> {
         return weatherRepository.getWeatherForecast(userLocation)
             .map { result ->
-                when(result) {
+                when (result) {
                     is ResultWrapper.Error -> {
                         ResultWrapper.Error(
                             data = result.data?.distinctBy { it.day },

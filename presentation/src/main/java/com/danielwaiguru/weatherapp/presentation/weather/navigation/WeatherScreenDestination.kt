@@ -5,8 +5,7 @@ import androidx.navigation.compose.composable
 import com.danielwaiguru.weatherapp.presentation.navigation.AppNavigationDestination
 import com.danielwaiguru.weatherapp.presentation.weather.WeatherRoute
 
-
-object WeatherScreenDestination: AppNavigationDestination {
+object WeatherScreenDestination : AppNavigationDestination {
     override val route: String = "com.danielwaiguru.weatherapp.WeatherScreen"
     override val destination: String = "com.danielwaiguru.weatherapp.WeatherScreenDestination"
     override val title: Int

@@ -15,25 +15,25 @@ import com.danielwaiguru.weatherapp.domain.repositories.WeatherRepository
 import com.danielwaiguru.weatherapp.domain.utils.Dispatcher
 import com.danielwaiguru.weatherapp.domain.utils.DispatcherProvider
 import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 internal class WeatherRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     @Dispatcher(DispatcherProvider.IO) private val ioDispatcher: CoroutineDispatcher
-): WeatherRepository {
+) : WeatherRepository {
     override suspend fun getCurrentWeather(
         userLocation: UserLocation
     ): Flow<ResultWrapper<Weather?>> = networkBoundResource(
         query = {
-                localDataSource.getCurrentWeather()
-                    .map { weatherEntity -> weatherEntity?.toWeather() }
+            localDataSource.getCurrentWeather()
+                .map { weatherEntity -> weatherEntity?.toWeather() }
         },
         fetch = {
             remoteDataSource.getCurrentWeather(
@@ -55,7 +55,6 @@ internal class WeatherRepositoryImpl @Inject constructor(
         query = {
             localDataSource.getWeatherForecast()
                 .map { entities -> entities.map(ForecastEntity::toWeatherForecast) }
-
         },
         fetch = {
             remoteDataSource.getWeatherForecast(

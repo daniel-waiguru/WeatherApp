@@ -15,17 +15,26 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class DataSourceModule {
-    @[Singleton Binds]
+    @[
+        Singleton
+        Binds
+    ]
     internal abstract fun bindRemoteDataSource(
         retrofitDataSource: RetrofitDataSource
     ): RemoteDataSource
 
-    @[Singleton Binds]
+    @[
+        Singleton
+        Binds
+    ]
     internal abstract fun bindLocalDataSource(
         roomDataSource: RoomDataSource
     ): LocalDataSource
 
-    @[Singleton Binds]
+    @[
+        Singleton
+        Binds
+    ]
     internal abstract fun bindLocationService(
         androidLocationService: AndroidLocationService
     ): LocationService

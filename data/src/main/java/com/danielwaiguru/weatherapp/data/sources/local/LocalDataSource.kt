@@ -3,8 +3,8 @@ package com.danielwaiguru.weatherapp.data.sources.local
 import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
 import com.danielwaiguru.weatherapp.data.sources.local.daos.WeatherDao
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 internal interface LocalDataSource {
     suspend fun saveWeather(weatherEntity: WeatherEntity)
@@ -18,7 +18,7 @@ internal interface LocalDataSource {
 
 internal class RoomDataSource @Inject constructor(
     private val weatherDao: WeatherDao
-): LocalDataSource {
+) : LocalDataSource {
     override suspend fun saveWeather(weatherEntity: WeatherEntity) {
         weatherDao.upsertCurrentWeather(weatherEntity)
     }
@@ -35,4 +35,3 @@ internal class RoomDataSource @Inject constructor(
         return weatherDao.getWeatherForecast()
     }
 }
-

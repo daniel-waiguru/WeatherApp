@@ -14,6 +14,7 @@ interface WeatherAppApiService {
         @Query("lon") longitude: Double,
         @Query("units") units: String = "metric"
     ): WeatherDto
+
     @GET(WEATHER_FORECAST_ENDPOINT)
     suspend fun getWeatherForecast(
         @Query("lat") latitude: Double,

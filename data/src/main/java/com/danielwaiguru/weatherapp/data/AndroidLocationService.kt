@@ -10,14 +10,14 @@ import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.suspendCancellableCoroutine
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
+import kotlinx.coroutines.suspendCancellableCoroutine
+import timber.log.Timber
 
 internal class AndroidLocationService @Inject constructor(
-    @ApplicationContext private val context: Context,
-): LocationService {
+    @ApplicationContext private val context: Context
+) : LocationService {
     private val locationManager by lazy {
         context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
@@ -27,7 +27,7 @@ internal class AndroidLocationService @Inject constructor(
     override val isGpsEnabled: Boolean
         get() {
             return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         }
 
     @SuppressLint("MissingPermission")

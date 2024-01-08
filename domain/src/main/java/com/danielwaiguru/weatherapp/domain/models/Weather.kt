@@ -13,7 +13,7 @@ data class Weather(
     val tempMax: Double,
     val date: Long,
     val lastUpdateAt: Long
-){
+) {
     data class City(
         val id: Int,
         val name: String,
@@ -22,7 +22,6 @@ data class Weather(
     data class Temperature(
         val temp: Double,
         val tempMin: Double,
-        val tempMax: Double,
+        val tempMax: Double
     )
 }
-

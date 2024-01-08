@@ -20,5 +20,4 @@ dependencies {
     // Chucker
     debugImplementation(libs.chucker.debug)
     releaseImplementation(libs.chucker)
-
 }

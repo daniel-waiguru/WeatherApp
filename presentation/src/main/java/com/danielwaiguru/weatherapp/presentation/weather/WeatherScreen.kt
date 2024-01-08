@@ -222,13 +222,14 @@ fun ForecastItemPreview() {
                 date = 1444,
                 temp = 6.7,
                 day = "fabellas",
-                conditionId = 600,
+                conditionId = 600
             ),
             modifier = Modifier
                 .fillMaxWidth()
         )
     }
 }
+
 @Composable
 private fun CurrentWeatherComponent(
     modifier: Modifier = Modifier,
@@ -288,7 +289,6 @@ private fun CurrentWeatherComponent(
         )
     }
 }
-
 
 @Composable
 private fun TempItem(

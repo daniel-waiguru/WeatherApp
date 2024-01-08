@@ -59,5 +59,4 @@ interface WeatherDao {
         deleteAllForecasts()
         saveWeatherForecast(forecasts)
     }
-
 }
