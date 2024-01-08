@@ -12,4 +12,6 @@ dependencies {
     implementation(libs.accompanist.permissions)
     implementation(project(":designsystem"))
     implementation(libs.lottie.compose)
+    testImplementation(project(":testing"))
+    androidTestImplementation(project(":testing"))
 }

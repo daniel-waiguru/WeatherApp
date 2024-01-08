@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +38,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.danielwaiguru.weatherapp.designsystem.components.ProgressIndicator
 import com.danielwaiguru.weatherapp.designsystem.previews.DevicePreviews
+import com.danielwaiguru.weatherapp.designsystem.testtags.TestTags
 import com.danielwaiguru.weatherapp.designsystem.theme.WeatherAppTheme
 import com.danielwaiguru.weatherapp.designsystem.utils.Dimensions
 import com.danielwaiguru.weatherapp.domain.models.Weather
@@ -74,7 +76,10 @@ fun WeatherScreen(
     Scaffold(
         modifier = modifier,
         snackbarHost = {
-            SnackbarHost(snackbarHostState)
+            SnackbarHost(
+                snackbarHostState,
+                modifier = Modifier.testTag(TestTags.Snackbar)
+            )
         }
     ) { paddingValues ->
         Column(
@@ -105,6 +110,7 @@ fun WeatherScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight(0.45f)
+                            .testTag(TestTags.CurrentWeather)
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -259,7 +265,9 @@ private fun CurrentWeatherComponent(
                 text = "${weather.temp}°C",
                 color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.displayLarge,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .testTag(TestTags.TempText)
             )
             Text(
                 text = weatherCondition.name,

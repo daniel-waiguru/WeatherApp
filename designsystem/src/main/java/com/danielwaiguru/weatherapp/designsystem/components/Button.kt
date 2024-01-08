@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.danielwaiguru.weatherapp.designsystem.previews.DevicePreviews
+import com.danielwaiguru.weatherapp.designsystem.testtags.TestTags
 import com.danielwaiguru.weatherapp.designsystem.theme.WeatherAppTheme
 
 @Composable
@@ -30,7 +31,7 @@ fun PrimaryButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier
-            .testTag("primary_button"),
+            .testTag(TestTags.PrimaryButton),
         shape = shape,
         contentPadding = contentPadding
     ) {
