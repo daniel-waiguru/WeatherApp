@@ -34,7 +34,7 @@ jobs:
         run: ./gradlew ktlintCheck
 
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew clean test jacocoTestReport
 
       - name: Run debug Build
         run: ./gradlew assembleDebug
