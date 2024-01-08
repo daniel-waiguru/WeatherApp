@@ -1,4 +1,4 @@
-A offline first mobile app that shows a current location weather and 5-day forecast written 100% in Kotlin and Jetpack Compose using Android Jetpack Components.
+An offline first mobile app that shows a current location weather and 5-day forecast written 100% in Kotlin and Jetpack Compose using Android Jetpack Components.
 ## Prerequisites
 To use this app, make sure you accept the location permission request to grant the app your location details.
 
@@ -14,7 +14,7 @@ To use this app, make sure you accept the location permission request to grant t
         * [Jetpack Compose](https://developer.android.com/jetpack/compose) - A modern toolkit for building native Android UI
         * [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle) - perform actions in response to a change in the lifecycle state.
         * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data lifecycle in a conscious manner and survive configuration change.
-        * [Room](https://developer.android.com/training/data-storage/room) - An ORM that provides abstraction layer over SQlite to allow fluent database access.
+        * [Room](https://developer.android.com/training/data-storage/room) - An ORM that provides an abstraction layer over SQLite to allow fluent database access.
     * [Chucker](https://github.com/ChuckerTeam/chucker) An on-device Http inspector for Android and OkHttp.
     * [Timber](https://github.com/JakeWharton/timber) - a highly extensible Android logger.
     * [Jacoco](https://docs.gradle.org/current/userguide/jacoco_plugin.html) - A Gradle plugin that provides code coverage metrics for Java code.
