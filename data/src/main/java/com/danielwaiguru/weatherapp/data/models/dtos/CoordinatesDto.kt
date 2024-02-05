@@ -24,7 +24,12 @@
 
 package com.danielwaiguru.weatherapp.data.models.dtos
 
+import com.danielwaiguru.weatherapp.domain.models.UserLocation
+import com.squareup.moshi.Json
+
 data class CoordinatesDto(
-    val lat: Double,
-    val lon: Double
-)
+    @field:Json(name = "lat")
+    override val latitude: Double,
+    @field:Json(name = "lon")
+    override val longitude: Double
+): UserLocation

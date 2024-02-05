@@ -24,7 +24,9 @@
 
 package com.danielwaiguru.weatherapp.data.models.entities
 
+import com.danielwaiguru.weatherapp.domain.models.UserLocation
+
 data class CoordinatesEntity(
-    val latitude: Double,
-    val longitude: Double
-)
+    override val latitude: Double,
+    override val longitude: Double
+): UserLocation

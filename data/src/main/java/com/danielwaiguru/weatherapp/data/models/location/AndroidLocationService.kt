@@ -22,22 +22,23 @@
  * SOFTWARE.
  */
 
-package com.danielwaiguru.weatherapp.data
+package com.danielwaiguru.weatherapp.data.models.location
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import com.danielwaiguru.weatherapp.data.models.entities.CoordinatesEntity
 import com.danielwaiguru.weatherapp.domain.location.LocationService
 import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
+import javax.inject.Inject
+import kotlin.coroutines.resume
 
 internal class AndroidLocationService @Inject constructor(
     @ApplicationContext private val context: Context
@@ -73,7 +74,7 @@ internal class AndroidLocationService @Inject constructor(
                         if (isSuccessful) {
                             continuation.resume(
                                 ResultWrapper.Success(
-                                    UserLocation(
+                                    CoordinatesEntity(
                                         latitude = result.latitude,
                                         longitude = result.longitude
                                     )
@@ -92,7 +93,7 @@ internal class AndroidLocationService @Inject constructor(
                         continuation.resume(
                             ResultWrapper.Success(
                                 if (it != null) {
-                                    UserLocation(
+                                    CoordinatesEntity(
                                         latitude = it.latitude,
                                         longitude = it.longitude
                                     )

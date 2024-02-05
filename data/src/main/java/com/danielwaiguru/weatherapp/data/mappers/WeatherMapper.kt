@@ -31,28 +31,27 @@ import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
 import com.danielwaiguru.weatherapp.data.models.responses.ForecastResponse
 import com.danielwaiguru.weatherapp.data.models.responses.WeatherDto
-import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 import com.danielwaiguru.weatherapp.domain.utils.getDayName
 import java.util.Date
 import java.util.Locale
 
-fun CoordinatesEntity.toCoordinates(): UserLocation = UserLocation(
-    latitude = latitude,
-    longitude = longitude
-)
+//fun CoordinatesEntity.toCoordinates(): UserLocation = UserLocation(
+//    latitude = latitude,
+//    longitude = longitude
+//)
 
 fun CoordinatesDto.toCoordinatesEntity(): CoordinatesEntity = CoordinatesEntity(
-    latitude = lat,
-    longitude = lon
+    latitude = latitude,
+    longitude = longitude
 )
 
 fun WeatherEntity.toWeather(): Weather = Weather(
     description = description,
     icon = icon,
     id = id,
-    userLocation = coordinates.toCoordinates(),
+    userLocation = coordinates,
     city = city,
     country = country,
     conditionId = conditionId,

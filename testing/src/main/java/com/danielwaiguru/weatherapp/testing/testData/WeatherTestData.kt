@@ -108,8 +108,8 @@ fun testWeatherDto() = WeatherDto(
     clouds = CloudsDto(all = 4399),
     cod = 2449,
     coordinates = CoordinatesDto(
-        lat = 50.51,
-        lon = 52.53
+        latitude = 50.51,
+        longitude = 52.53
     ),
     date = 6847,
     id = 4047,

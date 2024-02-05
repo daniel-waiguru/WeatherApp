@@ -24,7 +24,7 @@
 
 package com.danielwaiguru.weatherapp.data.di
 
-import com.danielwaiguru.weatherapp.data.AndroidLocationService
+import com.danielwaiguru.weatherapp.data.models.location.AndroidLocationService
 import com.danielwaiguru.weatherapp.data.sources.local.LocalDataSource
 import com.danielwaiguru.weatherapp.data.sources.local.RoomDataSource
 import com.danielwaiguru.weatherapp.data.sources.remote.RemoteDataSource
