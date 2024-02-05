@@ -40,17 +40,17 @@ inline fun <ResultType, RequestType> networkBoundResource(
     val data = query().first()
 
     if (shouldFetch(data)) {
-        val loading = launch {
-            query().collect { send(ResultWrapper.Loading(data = data)) }
+        val pendingRemoteData = launch {
+            query().collect { send(ResultWrapper.PendingRemoteData(data = data)) }
         }
 
         try {
             delay(2000)
             saveFetchResult(fetch())
-            loading.cancel()
+            pendingRemoteData.cancel()
             query().collect { send(ResultWrapper.Success(it)) }
         } catch (t: Throwable) {
-            loading.cancel()
+            pendingRemoteData.cancel()
             query().collect { send(ResultWrapper.Error(errorMessage = t.message, data = data)) }
         }
     } else {

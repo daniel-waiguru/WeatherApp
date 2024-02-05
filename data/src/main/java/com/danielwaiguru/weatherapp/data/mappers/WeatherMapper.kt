@@ -37,11 +37,6 @@ import com.danielwaiguru.weatherapp.domain.utils.getDayName
 import java.util.Date
 import java.util.Locale
 
-//fun CoordinatesEntity.toCoordinates(): UserLocation = UserLocation(
-//    latitude = latitude,
-//    longitude = longitude
-//)
-
 fun CoordinatesDto.toCoordinatesEntity(): CoordinatesEntity = CoordinatesEntity(
     latitude = latitude,
     longitude = longitude

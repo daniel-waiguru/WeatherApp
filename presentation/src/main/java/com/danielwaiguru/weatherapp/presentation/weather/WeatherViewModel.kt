@@ -66,7 +66,7 @@ class WeatherViewModel @Inject constructor(
                                 forecasts = result.data ?: emptyList()
                             )
                         }
-                        is ResultWrapper.Loading -> _currentWeatherUIState.update { currentState ->
+                        is ResultWrapper.PendingRemoteData -> _currentWeatherUIState.update { currentState ->
                             currentState.copy(
                                 isLoading = true,
                                 errorMessage = null,
@@ -97,7 +97,7 @@ class WeatherViewModel @Inject constructor(
                                 currentWeather = result.data
                             )
                         }
-                        is ResultWrapper.Loading -> _currentWeatherUIState.update { currentState ->
+                        is ResultWrapper.PendingRemoteData -> _currentWeatherUIState.update { currentState ->
                             currentState.copy(
                                 isLoading = true,
                                 errorMessage = null,
@@ -133,7 +133,7 @@ class WeatherViewModel @Inject constructor(
                         )
                     }
                 }
-                is ResultWrapper.Loading -> Unit
+                is ResultWrapper.PendingRemoteData -> Unit
                 is ResultWrapper.Success -> {
                     if (userLocationResult.data == null) {
                         _currentWeatherUIState.update { currentState ->

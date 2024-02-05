@@ -44,8 +44,8 @@ class GetWeatherForecastUseCase(
                             errorMessage = result.errorMessage
                         )
                     }
-                    is ResultWrapper.Loading -> {
-                        ResultWrapper.Loading(data = result.data?.distinctBy { it.day })
+                    is ResultWrapper.PendingRemoteData -> {
+                        ResultWrapper.PendingRemoteData(data = result.data?.distinctBy { it.day })
                     }
                     is ResultWrapper.Success -> {
                         ResultWrapper.Success(result.data?.distinctBy { it.day } ?: emptyList())

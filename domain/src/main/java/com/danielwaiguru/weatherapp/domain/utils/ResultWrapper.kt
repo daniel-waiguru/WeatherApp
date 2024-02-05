@@ -36,7 +36,7 @@ sealed class ResultWrapper<T>(
         data: T? = null
     ) : ResultWrapper<T>(data, errorMessage)
 
-    class Loading<T>(data: T? = null) : ResultWrapper<T>(data)
+    class PendingRemoteData<T>(data: T? = null) : ResultWrapper<T>(data)
 }
 
 data class ErrorResponse(
