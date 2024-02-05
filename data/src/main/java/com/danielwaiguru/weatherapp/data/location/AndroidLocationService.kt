@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.danielwaiguru.weatherapp.data.models.location
+package com.danielwaiguru.weatherapp.data.location
 
 import android.Manifest
 import android.annotation.SuppressLint
