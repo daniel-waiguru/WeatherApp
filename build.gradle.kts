@@ -33,6 +33,8 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.ktlint)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block
 

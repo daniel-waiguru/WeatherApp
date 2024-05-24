@@ -22,31 +22,26 @@
  * SOFTWARE.
  */
 
-package com.danielwaiguru.weatherapp.data.models.responses
+package com.danielwaiguru.weatherapp.data.models.dtos
 
-import com.danielwaiguru.weatherapp.data.models.dtos.CloudsDto
-import com.danielwaiguru.weatherapp.data.models.dtos.CoordinatesDto
-import com.danielwaiguru.weatherapp.data.models.dtos.Main
-import com.danielwaiguru.weatherapp.data.models.dtos.Rain
-import com.danielwaiguru.weatherapp.data.models.dtos.Sys
-import com.danielwaiguru.weatherapp.data.models.dtos.WeatherInfoDto
-import com.danielwaiguru.weatherapp.data.models.dtos.Wind
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherDto(
-    val base: String,
+    val base: String? = null,
     val clouds: CloudsDto,
-    val cod: Int,
-    @field:Json(name = "coord")
-    val coordinates: CoordinatesDto,
-    @field:Json(name = "dt")
+    val cod: Int? = null,
+    @SerialName("coord")
+    val coordinates: CoordinatesDto? = null,
+    @SerialName("dt")
     val date: Long,
-    val id: Int,
+    val id: Int? = null,
     val main: Main,
-    val name: String,
-    val rain: Rain,
-    val sys: Sys,
-    val timezone: Int,
+    val name: String? = null,
+    val rain: Rain? = null,
+    val sys: Sys? = null,
+    val timezone: Int? = null,
     val visibility: Int,
     val weather: List<WeatherInfoDto>,
     val wind: Wind

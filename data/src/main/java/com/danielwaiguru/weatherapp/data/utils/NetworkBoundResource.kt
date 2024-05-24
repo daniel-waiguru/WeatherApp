@@ -50,6 +50,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
             pendingRemoteData.cancel()
             query().collect { send(ResultWrapper.Success(it)) }
         } catch (t: Throwable) {
+            t.printStackTrace()
             pendingRemoteData.cancel()
             query().collect { send(ResultWrapper.Error(errorMessage = t.message, data = data)) }
         }

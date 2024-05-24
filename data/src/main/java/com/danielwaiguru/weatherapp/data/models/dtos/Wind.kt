@@ -24,6 +24,9 @@
 
 package com.danielwaiguru.weatherapp.data.models.dtos
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Wind(
     val deg: Int,
     val gust: Double,

@@ -24,4 +24,6 @@
 
 package com.danielwaiguru.weatherapp.data.models.responses
 
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
+
 typealias WeatherResponse = WeatherDto

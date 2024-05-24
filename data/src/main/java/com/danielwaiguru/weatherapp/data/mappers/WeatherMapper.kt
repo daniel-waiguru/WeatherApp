@@ -26,11 +26,12 @@ package com.danielwaiguru.weatherapp.data.mappers
 
 import android.text.format.DateUtils
 import com.danielwaiguru.weatherapp.data.models.dtos.CoordinatesDto
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
 import com.danielwaiguru.weatherapp.data.models.entities.CoordinatesEntity
+import com.danielwaiguru.weatherapp.data.models.entities.CoordinatesEntity.Companion.DEFAULT
 import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
 import com.danielwaiguru.weatherapp.data.models.responses.ForecastResponse
-import com.danielwaiguru.weatherapp.data.models.responses.WeatherDto
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 import com.danielwaiguru.weatherapp.domain.utils.getDayName
@@ -86,11 +87,11 @@ fun WeatherDto.toWeatherEntity(): WeatherEntity {
     val weatherInfo = weather[0]
     return WeatherEntity(
         description = weatherInfo.description,
-        city = name,
+        city = name.orEmpty(),
         icon = weatherInfo.icon,
-        id = id,
-        coordinates = coordinates.toCoordinatesEntity(),
-        country = sys.country,
+        id = id ?: 0,
+        coordinates = coordinates?.toCoordinatesEntity() ?: DEFAULT,
+        country = sys?.country.orEmpty(),
         conditionId = weatherInfo.id,
         temp = main.temp,
         tempMin = main.tempMin,

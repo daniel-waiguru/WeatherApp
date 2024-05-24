@@ -24,20 +24,22 @@
 
 package com.danielwaiguru.weatherapp.data.models.dtos
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Main(
-    @field:Json(name = "feels_like")
+    @SerialName("feels_like")
     val feelsLike: Double,
-    @field:Json(name = "grnd_level")
+    @SerialName("grnd_level")
     val groundLevel: Int,
     val humidity: Int,
     val pressure: Int,
-    @field:Json(name = "sea_level")
+    @SerialName("sea_level")
     val seaLevel: Int,
     val temp: Double,
-    @field:Json(name = "temp_max")
+    @SerialName("temp_max")
     val tempMax: Double,
-    @field:Json(name = "temp_min")
+    @SerialName("temp_min")
     val tempMin: Double
 )

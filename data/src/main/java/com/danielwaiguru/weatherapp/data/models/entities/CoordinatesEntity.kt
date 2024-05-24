@@ -29,4 +29,8 @@ import com.danielwaiguru.weatherapp.domain.models.UserLocation
 data class CoordinatesEntity(
     override val latitude: Double,
     override val longitude: Double
-): UserLocation
+): UserLocation {
+    companion object {
+        val DEFAULT = CoordinatesEntity(0.0, 0.0)
+    }
+}

@@ -37,13 +37,16 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
+import kotlinx.serialization.json.Json
 import okhttp3.Dispatcher
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -84,30 +87,23 @@ internal object NetworkingModule {
             )
             .build()
     }
-
-    @[
-        Singleton
-        Provides
-    ]
-    internal fun provideConverterFactory(): MoshiConverterFactory =
-        MoshiConverterFactory.create().apply {
-            asLenient()
-            failOnUnknown()
-            withNullSerialization()
-        }
-
+    @Provides
+    @Singleton
+    internal fun provideJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
     @[
         Singleton
         Provides
     ]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory
+        json: Json
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(moshiConverterFactory)
+            .addConverterFactory(json.asConverterFactory("application/json; charset=UTF8".toMediaType()))
             .build()
     }
 

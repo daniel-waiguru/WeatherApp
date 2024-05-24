@@ -30,6 +30,7 @@ plugins {
     id("jacoco")
     id("weatherapp.android.hilt")
     id("weatherapp.android.application.compose")
+    alias(libs.plugins.kotlinx.serialization)
 }
 android {
     namespace = "com.danielwaiguru.weatherapp"

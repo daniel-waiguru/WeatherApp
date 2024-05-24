@@ -24,7 +24,8 @@
 
 package com.danielwaiguru.weatherapp.domain.utils
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 sealed class ResultWrapper<T>(
     val data: T? = null,
@@ -38,9 +39,9 @@ sealed class ResultWrapper<T>(
 
     class PendingRemoteData<T>(data: T? = null) : ResultWrapper<T>(data)
 }
-
+@Serializable
 data class ErrorResponse(
-    @field:Json(name = "cod")
+    @SerialName("cod")
     val code: Int,
     val message: String
 )
