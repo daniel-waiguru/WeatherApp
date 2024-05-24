@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.danielwaiguru.weatherapp.designsystem.theme.WeatherAppTheme
-import com.danielwaiguru.weatherapp.presentation.permissions.navigation.PermissionsScreenDestination
+import com.danielwaiguru.weatherapp.presentation.permissions.navigation.PermissionsScreen
 import com.danielwaiguru.weatherapp.presentation.permissions.navigation.permissionsScreen
 import com.danielwaiguru.weatherapp.presentation.weather.navigation.weatherScreen
 
@@ -46,7 +46,7 @@ fun WeatherApp() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = PermissionsScreenDestination.route
+                startDestination = PermissionsScreen
             ) {
                 permissionsScreen(navController = navController)
                 weatherScreen()
