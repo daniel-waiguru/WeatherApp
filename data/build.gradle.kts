@@ -28,6 +28,7 @@ plugins {
     alias(libs.plugins.weatherapp.android.library.jacoco)
     id("weatherapp.android.hilt")
     id("weatherapp.android.room")
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {

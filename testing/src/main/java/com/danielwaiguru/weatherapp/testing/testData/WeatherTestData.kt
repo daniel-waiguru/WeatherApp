@@ -34,7 +34,7 @@ import com.danielwaiguru.weatherapp.data.models.dtos.Wind
 import com.danielwaiguru.weatherapp.data.models.entities.CoordinatesEntity
 import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
-import com.danielwaiguru.weatherapp.data.models.responses.WeatherDto
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
 import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast

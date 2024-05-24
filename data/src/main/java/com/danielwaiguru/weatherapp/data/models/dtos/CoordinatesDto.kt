@@ -25,11 +25,13 @@
 package com.danielwaiguru.weatherapp.data.models.dtos
 
 import com.danielwaiguru.weatherapp.domain.models.UserLocation
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CoordinatesDto(
-    @field:Json(name = "lat")
+    @SerialName("lat")
     override val latitude: Double,
-    @field:Json(name = "lon")
+    @SerialName("lon")
     override val longitude: Double
 ): UserLocation

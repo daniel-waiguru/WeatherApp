@@ -24,6 +24,9 @@
 
 package com.danielwaiguru.weatherapp.data.models.dtos
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Rain(
-    val `1h`: Double
+    val `1h`: Double? = null
 )

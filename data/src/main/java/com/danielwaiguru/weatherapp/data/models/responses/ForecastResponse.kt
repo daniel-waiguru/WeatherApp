@@ -25,10 +25,13 @@
 package com.danielwaiguru.weatherapp.data.models.responses
 
 import com.danielwaiguru.weatherapp.data.models.dtos.CityDto
-import com.squareup.moshi.Json
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ForecastResponse(
-    @field:Json(name = "cod")
+    @SerialName("cod")
     val code: String,
     val message: Int,
     val list: List<WeatherDto>,

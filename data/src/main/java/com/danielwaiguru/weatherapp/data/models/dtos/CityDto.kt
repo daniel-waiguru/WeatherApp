@@ -24,12 +24,14 @@
 
 package com.danielwaiguru.weatherapp.data.models.dtos
 
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CityDto(
     val id: Int,
     val name: String,
-    @field:Json(name = "coord")
+    @SerialName("coord")
     val coordinates: CoordinatesDto,
     val country: String,
     val population: Int
