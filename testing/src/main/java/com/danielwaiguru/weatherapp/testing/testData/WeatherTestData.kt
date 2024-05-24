@@ -29,13 +29,12 @@ import com.danielwaiguru.weatherapp.data.models.dtos.CoordinatesDto
 import com.danielwaiguru.weatherapp.data.models.dtos.Main
 import com.danielwaiguru.weatherapp.data.models.dtos.Rain
 import com.danielwaiguru.weatherapp.data.models.dtos.Sys
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
 import com.danielwaiguru.weatherapp.data.models.dtos.WeatherInfoDto
 import com.danielwaiguru.weatherapp.data.models.dtos.Wind
 import com.danielwaiguru.weatherapp.data.models.entities.CoordinatesEntity
 import com.danielwaiguru.weatherapp.data.models.entities.ForecastEntity
 import com.danielwaiguru.weatherapp.data.models.entities.WeatherEntity
-import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
-import com.danielwaiguru.weatherapp.domain.models.UserLocation
 import com.danielwaiguru.weatherapp.domain.models.Weather
 import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 
@@ -48,7 +47,7 @@ fun testWeather(
     description = "reprehendunt",
     icon = "02d",
     id = id,
-    userLocation = UserLocation(
+    userLocation = CoordinatesEntity(
         latitude = 18.19,
         longitude = 20.21
     ),
@@ -75,7 +74,7 @@ fun testForecast(
     conditionId = conditionId
 )
 
-val testLocation = UserLocation(latitude = -1.286389, longitude = 36.817223)
+val testLocation = CoordinatesEntity(latitude = -1.286389, longitude = 36.817223)
 fun testWeatherEntity() = WeatherEntity(
     description = "aptent",
     icon = "qualisque",
