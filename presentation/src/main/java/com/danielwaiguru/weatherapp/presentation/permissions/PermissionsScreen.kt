@@ -49,7 +49,6 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.danielwaiguru.weatherapp.designsystem.components.PrimaryButton
 import com.danielwaiguru.weatherapp.designsystem.components.TopAppBar
 import com.danielwaiguru.weatherapp.presentation.R
-import com.danielwaiguru.weatherapp.presentation.permissions.navigation.PermissionsScreenDestination
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -88,7 +87,7 @@ fun PermissionsScreen(
             TopAppBar(
                 modifier = Modifier
                     .fillMaxWidth(),
-                title = stringResource(id = PermissionsScreenDestination.title)
+                title = stringResource(id = R.string.grant_permissions)
             )
         },
         modifier = modifier

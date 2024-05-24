@@ -27,6 +27,7 @@ plugins {
     id("weatherapp.android.feature")
     alias(libs.plugins.weatherapp.android.library.jacoco)
     id("weatherapp.android.library.compose")
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -35,6 +36,7 @@ android {
 dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.permissions)
+    implementation(libs.kotlinx.json)
     implementation(project(":designsystem"))
     implementation(libs.lottie.compose)
     testImplementation(project(":testing"))
