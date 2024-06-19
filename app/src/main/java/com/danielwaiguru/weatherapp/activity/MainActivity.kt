@@ -27,22 +27,15 @@ package com.danielwaiguru.weatherapp.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.danielwaiguru.weatherapp.navigation.WeatherApp
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.compose.ui.platform.LocalLifecycleOwner as PlatformLifecycleOwner
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CompositionLocalProvider(
-                LocalLifecycleOwner provides PlatformLifecycleOwner.current
-            ) {
-                WeatherApp()
-            }
+            WeatherApp()
         }
     }
 }

@@ -71,6 +71,7 @@ android {
 
 dependencies {
     implementation(project(":presentation"))
+    implementation(project(":data"))
     implementation(project(":designsystem"))
     coreLibraryDesugaring(libs.android.desugarJdkLibs)
     debugImplementation(libs.leakcanary.android)

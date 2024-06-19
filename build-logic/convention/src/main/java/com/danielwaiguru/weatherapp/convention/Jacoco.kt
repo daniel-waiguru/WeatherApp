@@ -40,7 +40,9 @@ private val coverageExclusions = listOf(
     "**/R.class",
     "**/R\$*.class",
     "**/BuildConfig.*",
-    "**/Manifest*.*"
+    "**/Manifest*.*",
+    "**/*_Hilt*.class",
+    "**/Hilt_*.class",
 )
 
 private fun String.capitalize() = replaceFirstChar {
@@ -85,12 +87,9 @@ internal fun Project.configureJacoco(
     tasks.withType<Test>().configureEach {
         configure<JacocoTaskExtension> {
             // Required for JaCoCo + Robolectric
-            // https://github.com/robolectric/robolectric/issues/2230
-            // TODO: Consider removing if not we don't add Robolectric
             isIncludeNoLocationClasses = true
 
-            // Required for JDK 11 with the above
-            // https://github.com/gradle/gradle/issues/5184#issuecomment-391982009
+            // Required for JDK 11 or the above
             excludes = listOf("jdk.internal.*")
         }
     }

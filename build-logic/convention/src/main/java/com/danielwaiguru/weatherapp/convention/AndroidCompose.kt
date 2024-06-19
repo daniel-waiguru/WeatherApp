@@ -29,22 +29,18 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 /**
  * Configure Compose-specific options
  */
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
         buildFeatures {
             compose = true
         }
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-//        composeOptions {
-//            kotlinCompilerExtensionVersion = libs.findVersion("androidxComposeCompiler").get().toString()
-//        }
         packaging {
             resources {
                 excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -63,10 +59,7 @@ internal fun Project.configureAndroidCompose(
             add("debugImplementation", libs.findBundle("compose-testing-manifest").get())
         }
     }
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            freeCompilerArgs = freeCompilerArgs
-        }
-    }
+//    extensions.configure<ComposeCompilerGradlePluginExtension> {
+//        enableStrongSkippingMode = true
+//    }
 }
