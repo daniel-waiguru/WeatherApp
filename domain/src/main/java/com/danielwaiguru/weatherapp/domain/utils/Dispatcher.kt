@@ -31,5 +31,6 @@ import javax.inject.Qualifier
 annotation class Dispatcher(val dispatcherProvider: DispatcherProvider)
 
 enum class DispatcherProvider {
-    IO, MAIN
+    IO,
+    MAIN,
 }

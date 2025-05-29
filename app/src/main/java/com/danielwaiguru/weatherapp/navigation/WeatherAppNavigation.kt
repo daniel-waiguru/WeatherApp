@@ -38,16 +38,16 @@ import com.danielwaiguru.weatherapp.presentation.weather.navigation.WeatherScree
 import com.danielwaiguru.weatherapp.presentation.weather.navigation.weatherScreen
 
 @Composable
-fun WeatherApp(hasLocationPermission: Boolean) {
+fun WeatherAppNavigation(hasLocationPermission: Boolean) {
     WeatherAppTheme {
         val navController = rememberNavController()
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.background,
         ) {
             NavHost(
                 navController = navController,
-                startDestination = if (hasLocationPermission) WeatherScreen else PermissionsScreen
+                startDestination = if (hasLocationPermission) WeatherScreen else PermissionsScreen,
             ) {
                 permissionsScreen(navController = navController)
                 weatherScreen()
