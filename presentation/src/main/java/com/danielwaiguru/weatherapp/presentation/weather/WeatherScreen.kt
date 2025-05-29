@@ -185,7 +185,6 @@ fun WeatherScreen(
                             Modifier
                                 .fillMaxWidth(),
                         color = MaterialTheme.colorScheme.onBackground,
-                        thickness = 2.dp,
                     )
                     WeatherForecastComponent(
                         forecasts = state.forecasts,
@@ -302,7 +301,7 @@ private fun CurrentWeatherComponent(
             modifier =
                 Modifier
                     .matchParentSize()
-                    .offset(y = 2.dp),
+                    .offset(y = 3.dp),
         )
         Column(
             modifier =
