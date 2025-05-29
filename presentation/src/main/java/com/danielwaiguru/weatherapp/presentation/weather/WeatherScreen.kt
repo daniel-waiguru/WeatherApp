@@ -30,16 +30,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -104,8 +110,10 @@ fun WeatherScreen(
                 snackbarHostState,
                 modifier = Modifier.testTag(TestTags.Snackbar)
             )
-        }
+        },
+        contentWindowInsets = ScaffoldDefaults.contentWindowInsets.exclude(WindowInsets.statusBars)
     ) { paddingValues ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -162,10 +170,10 @@ fun WeatherScreen(
                                 .padding(10.dp)
                         )
                     }
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onPrimary,
+                        color = MaterialTheme.colorScheme.onBackground,
                         thickness = 2.dp
 
                     )
@@ -218,7 +226,7 @@ private fun ForecastItem(
     ) {
         Text(
             text = forecast.day,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .weight(1f)
@@ -234,7 +242,7 @@ private fun ForecastItem(
         )
         Text(
             text = "${forecast.temp}°C",
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.End,
             modifier = Modifier
                 .weight(1f)
@@ -276,6 +284,7 @@ private fun CurrentWeatherComponent(
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .matchParentSize()
+                .offset(y = 2.dp)
         )
         Column(
             modifier = Modifier
@@ -287,7 +296,7 @@ private fun CurrentWeatherComponent(
         ) {
             Text(
                 text = "${weather.temp}°C",
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -295,7 +304,7 @@ private fun CurrentWeatherComponent(
             )
             Text(
                 text = weatherCondition.name,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 25.sp
@@ -308,7 +317,7 @@ private fun CurrentWeatherComponent(
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(bottom = Dimensions.PaddingLarge, start = Dimensions.PaddingMedium),
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground
         )
         Text(
             text = "${weather.city}, ${weather.country}",
@@ -316,8 +325,9 @@ private fun CurrentWeatherComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopCenter)
+                .statusBarsPadding()
                 .padding(top = Dimensions.PaddingLarge),
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }
@@ -337,12 +347,12 @@ private fun TempItem(
             text = "$temp°C",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground
         )
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }

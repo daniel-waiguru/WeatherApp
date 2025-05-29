@@ -34,10 +34,11 @@ import androidx.navigation.compose.rememberNavController
 import com.danielwaiguru.weatherapp.designsystem.theme.WeatherAppTheme
 import com.danielwaiguru.weatherapp.presentation.permissions.navigation.PermissionsScreen
 import com.danielwaiguru.weatherapp.presentation.permissions.navigation.permissionsScreen
+import com.danielwaiguru.weatherapp.presentation.weather.navigation.WeatherScreen
 import com.danielwaiguru.weatherapp.presentation.weather.navigation.weatherScreen
 
 @Composable
-fun WeatherApp() {
+fun WeatherApp(hasLocationPermission: Boolean) {
     WeatherAppTheme {
         val navController = rememberNavController()
         Surface(
@@ -46,7 +47,7 @@ fun WeatherApp() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = PermissionsScreen
+                startDestination = if (hasLocationPermission) WeatherScreen else PermissionsScreen
             ) {
                 permissionsScreen(navController = navController)
                 weatherScreen()
