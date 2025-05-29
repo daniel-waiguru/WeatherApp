@@ -39,9 +39,9 @@ class PermissionsScreenTest {
     fun assert_get_started_button_has_click_action() {
         rule.setContent {
             PermissionsScreen(
-                onNavigateToWeather = { }
+                onNavigateToWeather = { },
             )
         }
-        rule.onNodeWithTag(TestTags.PrimaryButton).assertHasClickAction()
+        rule.onNodeWithTag(TestTags.PRIMARY_BUTTON).assertHasClickAction()
     }
 }

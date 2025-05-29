@@ -44,5 +44,5 @@ data class WeatherDto(
     val timezone: Int? = null,
     val visibility: Int,
     val weather: List<WeatherInfoDto>,
-    val wind: Wind
+    val wind: Wind,
 )

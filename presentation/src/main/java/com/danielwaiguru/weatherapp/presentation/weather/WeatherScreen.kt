@@ -30,16 +30,22 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -74,24 +80,26 @@ import com.danielwaiguru.weatherapp.presentation.utils.getWeatherCondition
 
 @Composable
 fun WeatherRoute(
-    viewModel: WeatherViewModel = hiltViewModel()
+    viewModel: WeatherViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.currentWeatherUIState.collectAsStateWithLifecycle()
     WeatherScreen(
-        modifier = Modifier
-            .fillMaxSize(),
-        state = uiState
+        modifier =
+            Modifier
+                .fillMaxSize(),
+        state = uiState,
     )
 }
 
 @Composable
 fun WeatherScreen(
     modifier: Modifier = Modifier,
-    state: WeatherScreenState
+    state: WeatherScreenState,
 ) {
-    val snackbarHostState = remember {
-        SnackbarHostState()
-    }
+    val snackbarHostState =
+        remember {
+            SnackbarHostState()
+        }
     LaunchedEffect(state.errorMessage) {
         if (state.errorMessage != null) {
             snackbarHostState.showSnackbar(state.errorMessage)
@@ -102,25 +110,30 @@ fun WeatherScreen(
         snackbarHost = {
             SnackbarHost(
                 snackbarHostState,
-                modifier = Modifier.testTag(TestTags.Snackbar)
+                modifier = Modifier.testTag(TestTags.SNACKBAR),
             )
-        }
+        },
+        contentWindowInsets = ScaffoldDefaults.contentWindowInsets.exclude(WindowInsets.statusBars),
     ) { paddingValues ->
+
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             when {
                 state.isLoadingWithNoData -> {
                     Box(
                         contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .fillMaxSize()
+                        modifier =
+                            Modifier
+                                .fillMaxSize(),
                     ) {
                         ProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
+                            modifier =
+                                Modifier
+                                    .align(Alignment.Center),
                         )
                     }
                 }
@@ -131,50 +144,55 @@ fun WeatherScreen(
                     CurrentWeatherComponent(
                         weather = state.currentWeather,
                         weatherCondition = weatherCondition,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight(0.45f)
-                            .testTag(TestTags.CurrentWeather)
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.45f)
+                                .testTag(TestTags.CURRENT_WEATHER),
                     )
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(weatherCondition.backgroundColor)
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .background(weatherCondition.backgroundColor),
                     ) {
                         TempItem(
                             temp = state.currentWeather.tempMin,
                             text = stringResource(id = R.string.min),
-                            modifier = Modifier
-                                .padding(10.dp)
+                            modifier =
+                                Modifier
+                                    .padding(10.dp),
                         )
                         TempItem(
                             temp = state.currentWeather.temp,
                             text = stringResource(id = R.string.current),
-                            modifier = Modifier
-                                .padding(10.dp)
+                            modifier =
+                                Modifier
+                                    .padding(10.dp),
                         )
                         TempItem(
                             temp = state.currentWeather.tempMax,
                             text = stringResource(id = R.string.max),
-                            modifier = Modifier
-                                .padding(10.dp)
+                            modifier =
+                                Modifier
+                                    .padding(10.dp),
                         )
                     }
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        thickness = 2.dp
-
+                    HorizontalDivider(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                     WeatherForecastComponent(
                         forecasts = state.forecasts,
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth()
-                            .background(weatherCondition.backgroundColor)
+                        modifier =
+                            Modifier
+                                .weight(1f)
+                                .fillMaxWidth()
+                                .background(weatherCondition.backgroundColor),
                     )
                 }
             }
@@ -185,19 +203,21 @@ fun WeatherScreen(
 @Composable
 fun WeatherForecastComponent(
     modifier: Modifier = Modifier,
-    forecasts: List<WeatherForecast>
+    forecasts: List<WeatherForecast>,
 ) {
     LazyColumn(
         modifier = modifier,
-        verticalArrangement = Arrangement
-            .spacedBy(Dimensions.PaddingMedium)
+        verticalArrangement =
+            Arrangement
+                .spacedBy(Dimensions.PaddingMedium),
     ) {
         items(forecasts, key = { it.id }) { forecast ->
             ForecastItem(
                 forecast = forecast,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
             )
         }
     }
@@ -206,7 +226,7 @@ fun WeatherForecastComponent(
 @Composable
 private fun ForecastItem(
     modifier: Modifier = Modifier,
-    forecast: WeatherForecast
+    forecast: WeatherForecast,
 ) {
     val weatherCondition by remember(forecast.conditionId) {
         derivedStateOf { forecast.conditionId.getWeatherCondition() }
@@ -214,30 +234,32 @@ private fun ForecastItem(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
             text = forecast.day,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier
-                .weight(1f)
+            modifier =
+                Modifier
+                    .weight(1f),
         )
         Image(
             painter = painterResource(id = weatherCondition.iconId),
             contentDescription = stringResource(id = weatherCondition.nameId),
             contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .size(30.dp)
-                .weight(1f)
-
+            modifier =
+                Modifier
+                    .size(30.dp)
+                    .weight(1f),
         )
         Text(
             text = "${forecast.temp}°C",
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.End,
-            modifier = Modifier
-                .weight(1f)
+            modifier =
+                Modifier
+                    .weight(1f),
         )
     }
 }
@@ -247,15 +269,17 @@ private fun ForecastItem(
 fun ForecastItemPreview() {
     WeatherAppTheme {
         ForecastItem(
-            forecast = WeatherForecast(
-                id = 3406,
-                date = 1444,
-                temp = 6.7,
-                day = "fabellas",
-                conditionId = 600
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
+            forecast =
+                WeatherForecast(
+                    id = 3406,
+                    date = 1444,
+                    temp = 6.7,
+                    day = "fabellas",
+                    conditionId = 600,
+                ),
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
         )
     }
 }
@@ -264,60 +288,68 @@ fun ForecastItemPreview() {
 private fun CurrentWeatherComponent(
     modifier: Modifier = Modifier,
     weather: Weather,
-    weatherCondition: WeatherCondition
+    weatherCondition: WeatherCondition,
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Image(
             painter = painterResource(id = weatherCondition.backgroundId),
             contentDescription = weather.description,
             contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .matchParentSize()
+            modifier =
+                Modifier
+                    .matchParentSize()
+                    .offset(y = 3.dp),
         )
         Column(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .fillMaxSize()
-                .padding(Dimensions.PaddingMedium),
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .fillMaxSize()
+                    .padding(Dimensions.PaddingMedium),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = "${weather.temp}°C",
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .testTag(TestTags.TempText)
+                modifier =
+                    Modifier
+                        .testTag(TestTags.TEMPERATURE_TEXT),
             )
             Text(
                 text = weatherCondition.name,
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 25.sp
-                ),
-                textAlign = TextAlign.Center
+                color = MaterialTheme.colorScheme.onBackground,
+                style =
+                    MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 25.sp,
+                    ),
+                textAlign = TextAlign.Center,
             )
         }
         Text(
             text = "Last Updated: ${DateUtils.toFormattedDate(weather.lastUpdateAt)}",
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(bottom = Dimensions.PaddingLarge, start = Dimensions.PaddingMedium),
-            color = MaterialTheme.colorScheme.onPrimary
+            modifier =
+                Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(bottom = Dimensions.PaddingLarge, start = Dimensions.PaddingMedium),
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
             text = "${weather.city}, ${weather.country}",
             textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopCenter)
-                .padding(top = Dimensions.PaddingLarge),
-            color = MaterialTheme.colorScheme.onPrimary
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.TopCenter)
+                    .statusBarsPadding()
+                    .padding(top = Dimensions.PaddingLarge),
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
@@ -326,23 +358,23 @@ private fun CurrentWeatherComponent(
 private fun TempItem(
     temp: Double,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = "$temp°C",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
@@ -354,8 +386,9 @@ fun TempItemPreview() {
         TempItem(
             temp = 12.0,
             text = "min",
-            modifier = Modifier
-                .padding(10.dp)
+            modifier =
+                Modifier
+                    .padding(10.dp),
         )
     }
 }

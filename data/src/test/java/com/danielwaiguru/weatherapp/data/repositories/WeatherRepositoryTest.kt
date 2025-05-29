@@ -54,11 +54,12 @@ class WeatherRepositoryTest {
 
     @Before
     fun setup() {
-        weatherRepository = WeatherRepositoryImpl(
-            remoteDataSource = remoteDataSource,
-            localDataSource = localDataSource,
-            ioDispatcher = UnconfinedTestDispatcher()
-        )
+        weatherRepository =
+            WeatherRepositoryImpl(
+                remoteDataSource = remoteDataSource,
+                localDataSource = localDataSource,
+                ioDispatcher = UnconfinedTestDispatcher(),
+            )
     }
 
     @Test

@@ -33,10 +33,10 @@ import com.danielwaiguru.weatherapp.data.sources.local.daos.WeatherDao
 @Database(
     entities = [
         WeatherEntity::class,
-        ForecastEntity::class
+        ForecastEntity::class,
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = true,
 )
 abstract class WeatherAppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao

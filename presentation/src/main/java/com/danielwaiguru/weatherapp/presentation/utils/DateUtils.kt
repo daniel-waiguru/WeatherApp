@@ -31,14 +31,16 @@ import java.util.Locale
 object DateUtils {
     fun toFormattedDate(timeInMillis: Long): String {
         return try {
-            val outDateFormat = SimpleDateFormat(
-                "d MMM, yyyy, HH:mm",
-                Locale.getDefault()
-            )
-            val outTimeFormat = SimpleDateFormat(
-                "HH:mm",
-                Locale.getDefault()
-            )
+            val outDateFormat =
+                SimpleDateFormat(
+                    "d MMM, yyyy, HH:mm",
+                    Locale.getDefault(),
+                )
+            val outTimeFormat =
+                SimpleDateFormat(
+                    "HH:mm",
+                    Locale.getDefault(),
+                )
             if (DateUtils.isToday(timeInMillis)) {
                 outTimeFormat.format(timeInMillis)
             } else {

@@ -24,18 +24,24 @@
 
 package com.danielwaiguru.weatherapp.activity
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.danielwaiguru.weatherapp.navigation.WeatherApp
+import androidx.activity.enableEdgeToEdge
+import com.danielwaiguru.weatherapp.navigation.WeatherAppNavigation
+import com.danielwaiguru.weatherapp.util.hasPermission
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            WeatherApp()
+            WeatherAppNavigation(
+                hasLocationPermission = hasPermission(Manifest.permission.ACCESS_FINE_LOCATION),
+            )
         }
     }
 }

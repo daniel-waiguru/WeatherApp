@@ -43,7 +43,7 @@ fun NavGraphBuilder.permissionsScreen(navController: NavHostController) {
                         inclusive = true
                     }
                 }
-            }
+            },
         )
     }
 }

@@ -33,10 +33,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 
 class TestLocationService : LocationService {
-    private val currentLocation = MutableStateFlow<ResultWrapper<UserLocation?>>(
-        ResultWrapper.Success(testLocation)
-    )
+    private val currentLocation =
+        MutableStateFlow<ResultWrapper<UserLocation?>>(
+            ResultWrapper.Success(testLocation),
+        )
     private val isGpsEnabledResult = MutableStateFlow(true)
+
     override suspend fun getCurrentLocation(): ResultWrapper<UserLocation?> = currentLocation.first()
 
     override val isGpsEnabled: Boolean

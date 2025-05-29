@@ -43,5 +43,5 @@ data class WeatherEntity(
     val tempMin: Double,
     val tempMax: Double,
     val date: Long,
-    val lastUpdateAt: Long
+    val lastUpdateAt: Long,
 )

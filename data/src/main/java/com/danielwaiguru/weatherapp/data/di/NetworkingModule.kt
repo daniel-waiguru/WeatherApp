@@ -47,32 +47,34 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkingModule {
     private const val REQUEST_TIMEOUT_S = 20L
 
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun provideHttpClient(
-        @ApplicationContext appContext: Context
+        @ApplicationContext appContext: Context,
     ): OkHttpClient {
-        val logging = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
+        val logging =
+            HttpLoggingInterceptor().apply {
+                level =
+                    if (BuildConfig.DEBUG) {
+                        HttpLoggingInterceptor.Level.BODY
+                    } else {
+                        HttpLoggingInterceptor.Level.NONE
+                    }
             }
-        }
-        val chuckerInterceptor = ChuckerInterceptor.Builder(appContext)
-            .collector(ChuckerCollector(appContext))
-            .maxContentLength(250_000L)
-            .redactHeaders(emptySet())
-            .alwaysReadResponseBody(true)
-            .build()
+        val chuckerInterceptor =
+            ChuckerInterceptor.Builder(appContext)
+                .collector(ChuckerCollector(appContext))
+                .maxContentLength(250_000L)
+                .redactHeaders(emptySet())
+                .alwaysReadResponseBody(true)
+                .build()
         return OkHttpClient.Builder()
             .readTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
             .connectTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
@@ -83,22 +85,25 @@ internal object NetworkingModule {
             .dispatcher(
                 Dispatcher().apply {
                     maxRequestsPerHost = 8
-                }
+                },
             )
             .build()
     }
+
     @Provides
     @Singleton
-    internal fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-    }
+    internal fun provideJson(): Json =
+        Json {
+            ignoreUnknownKeys = true
+        }
+
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        json: Json
+        json: Json,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -108,8 +113,8 @@ internal object NetworkingModule {
     }
 
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun apiServiceBuilder(retrofit: Retrofit): WeatherAppApiService {
         return retrofit.create(WeatherAppApiService::class.java)

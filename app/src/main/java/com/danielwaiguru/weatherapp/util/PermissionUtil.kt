@@ -22,33 +22,11 @@
  * SOFTWARE.
  */
 
-package com.danielwaiguru.weatherapp.data.di
+package com.danielwaiguru.weatherapp.util
 
-import com.danielwaiguru.weatherapp.domain.repositories.WeatherRepository
-import com.danielwaiguru.weatherapp.domain.usecases.GetCurrentWeatherUseCase
-import com.danielwaiguru.weatherapp.domain.usecases.GetWeatherForecastUseCase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import android.content.Context
+import android.content.pm.PackageManager
 
-@Module
-@InstallIn(ViewModelComponent::class)
-object UseCasesModule {
-    @[
-    Provides
-    ViewModelScoped
-    ]
-    fun provideGetCurrentWeatherUseCase(
-        weatherRepository: WeatherRepository,
-    ): GetCurrentWeatherUseCase = GetCurrentWeatherUseCase(weatherRepository)
-
-    @[
-    Provides
-    ViewModelScoped
-    ]
-    fun provideGetWeatherForecastUseCase(
-        weatherRepository: WeatherRepository,
-    ): GetWeatherForecastUseCase = GetWeatherForecastUseCase(weatherRepository)
+fun Context.hasPermission(permission: String): Boolean {
+    return checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 }
