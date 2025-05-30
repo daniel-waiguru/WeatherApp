@@ -116,7 +116,7 @@ fun WeatherScreen(
         snackbarHost = {
             SnackbarHost(
                 snackbarHostState,
-                modifier = Modifier.testTag(TestTags.Snackbar)
+                modifier = Modifier.testTag(TestTags.SNACKBAR_TAG)
             )
         },
         contentWindowInsets = ScaffoldDefaults.contentWindowInsets.exclude(WindowInsets.statusBars)
@@ -133,7 +133,8 @@ fun WeatherScreen(
                 Indicator(
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .statusBarsPadding(),
+                        .statusBarsPadding()
+                        .testTag(TestTags.PULL_TO_REFRESH_INDICATOR_TAG),
                     isRefreshing = true,
                     state = pullToRefreshState
                 )
@@ -179,7 +180,7 @@ private fun WeatherView(
                         Modifier
                             .fillMaxWidth()
                             .fillParentMaxHeight(0.45f)
-                            .testTag(TestTags.CurrentWeather),
+                            .testTag(TestTags.CURRENT_WEATHER_COMPONENT_TAG),
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -327,7 +328,7 @@ private fun CurrentWeatherComponent(
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .testTag(TestTags.TempText)
+                    .testTag(TestTags.TEMP_TEXT_TAG)
             )
             Text(
                 text = weatherCondition.name,

@@ -42,7 +42,7 @@ fun ProgressIndicator(
 ) {
     CircularProgressIndicator(
         modifier = modifier
-            .testTag(TestTags.ProgressIndicator),
+            .testTag(TestTags.PROGRESS_INDICATOR_TAG),
         color = color,
         strokeWidth = stockWidth
     )

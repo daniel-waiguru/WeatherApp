@@ -25,9 +25,10 @@
 package com.danielwaiguru.weatherapp.designsystem.testtags
 
 object TestTags {
-    const val PrimaryButton = "primary_button"
-    const val ProgressIndicator = "progress_indicator"
-    const val CurrentWeather = "current_weather_component"
-    const val TempText = "temp_text"
-    const val Snackbar = "snack_bar"
+    const val PRIMARY_BUTTON_TAG = "primary_button"
+    const val PROGRESS_INDICATOR_TAG = "progress_indicator"
+    const val CURRENT_WEATHER_COMPONENT_TAG = "current_weather_component"
+    const val TEMP_TEXT_TAG = "temp_text"
+    const val SNACKBAR_TAG = "snack_bar"
+    const val PULL_TO_REFRESH_INDICATOR_TAG = "pull_to_refresh_indicator"
 }

@@ -41,10 +41,11 @@ class WeatherScreenTest {
     fun loading_state_is_handled_by_displaying_progress_indicator() {
         rule.setContent {
             WeatherScreen(
-                state = WeatherScreenState(isLoading = true)
+                state = WeatherScreenState(isLoading = true),
+                onRefresh = {}
             )
         }
-        rule.onNodeWithTag(TestTags.ProgressIndicator).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.PROGRESS_INDICATOR_TAG).assertIsDisplayed()
     }
 
     @Test
@@ -54,11 +55,12 @@ class WeatherScreenTest {
                 state = WeatherScreenState(
                     isLoading = false,
                     currentWeather = testWeather()
-                )
+                ),
+                onRefresh = {}
             )
         }
-        rule.onNodeWithTag(TestTags.CurrentWeather).assertIsDisplayed()
-        rule.onNodeWithTag(TestTags.TempText).assertTextEquals("${testWeather().temp}°C")
+        rule.onNodeWithTag(TestTags.CURRENT_WEATHER_COMPONENT_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.TEMP_TEXT_TAG).assertTextEquals("${testWeather().temp}°C")
     }
 
     @Test
@@ -68,9 +70,10 @@ class WeatherScreenTest {
                 state = WeatherScreenState(
                     isLoading = false,
                     errorMessage = "Failed. Try again"
-                )
+                ),
+                onRefresh = {}
             )
         }
-        rule.onNodeWithTag(TestTags.Snackbar).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.SNACKBAR_TAG).assertIsDisplayed()
     }
 }

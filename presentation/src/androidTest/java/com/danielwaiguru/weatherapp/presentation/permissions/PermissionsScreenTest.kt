@@ -42,6 +42,6 @@ class PermissionsScreenTest {
                 onNavigateToWeather = { }
             )
         }
-        rule.onNodeWithTag(TestTags.PrimaryButton).assertHasClickAction()
+        rule.onNodeWithTag(TestTags.PRIMARY_BUTTON_TAG).assertHasClickAction()
     }
 }

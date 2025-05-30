@@ -55,7 +55,7 @@ fun PrimaryButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier
-            .testTag(TestTags.PrimaryButton),
+            .testTag(TestTags.PRIMARY_BUTTON_TAG),
         shape = shape,
         contentPadding = contentPadding
     ) {
