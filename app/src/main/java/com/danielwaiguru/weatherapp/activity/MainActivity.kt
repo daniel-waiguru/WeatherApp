@@ -29,7 +29,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.danielwaiguru.weatherapp.navigation.WeatherAppNavigation
+import com.danielwaiguru.weatherapp.navigation.WeatherApp
 import com.danielwaiguru.weatherapp.util.hasPermission
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContent {
-            WeatherAppNavigation(
+            WeatherApp(
                 hasLocationPermission = hasPermission(Manifest.permission.ACCESS_FINE_LOCATION),
             )
         }

@@ -46,23 +46,21 @@ fun PrimaryButton(
     enabled: Boolean = true,
     shape: Shape = ButtonDefaults.shape,
     onClick: () -> Unit,
-    contentPadding: PaddingValues =
-        PaddingValues(
-            top = 15.dp,
-            bottom = 15.dp,
-        ),
+    contentPadding: PaddingValues = PaddingValues(
+        top = 15.dp,
+        bottom = 15.dp
+    )
 ) {
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier =
-            modifier
-                .testTag(TestTags.PRIMARY_BUTTON),
+        modifier = modifier
+            .testTag(TestTags.PrimaryButton),
         shape = shape,
-        contentPadding = contentPadding,
+        contentPadding = contentPadding
     ) {
         Text(
-            text = text,
+            text = text
         )
     }
 }
@@ -74,10 +72,9 @@ private fun PrimaryButtonPreview() {
         PrimaryButton(
             text = "Click",
             onClick = { /*TODO*/ },
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
         )
     }
 }

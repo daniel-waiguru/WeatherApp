@@ -34,5 +34,5 @@ data class CityDto(
     @SerialName("coord")
     val coordinates: CoordinatesDto,
     val country: String,
-    val population: Int,
+    val population: Int
 )

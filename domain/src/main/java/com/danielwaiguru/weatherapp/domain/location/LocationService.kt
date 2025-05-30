@@ -29,6 +29,5 @@ import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
 
 interface LocationService {
     suspend fun getCurrentLocation(): ResultWrapper<UserLocation?>
-
     val isGpsEnabled: Boolean
 }

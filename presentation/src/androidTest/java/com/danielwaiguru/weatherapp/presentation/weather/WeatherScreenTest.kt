@@ -41,38 +41,36 @@ class WeatherScreenTest {
     fun loading_state_is_handled_by_displaying_progress_indicator() {
         rule.setContent {
             WeatherScreen(
-                state = WeatherScreenState(isLoading = true),
+                state = WeatherScreenState(isLoading = true)
             )
         }
-        rule.onNodeWithTag(TestTags.PROGRESS_INDICATOR).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.ProgressIndicator).assertIsDisplayed()
     }
 
     @Test
     fun current_weather_is_displayed_when_its_not_null() {
         rule.setContent {
             WeatherScreen(
-                state =
-                    WeatherScreenState(
-                        isLoading = false,
-                        currentWeather = testWeather(),
-                    ),
+                state = WeatherScreenState(
+                    isLoading = false,
+                    currentWeather = testWeather()
+                )
             )
         }
-        rule.onNodeWithTag(TestTags.CURRENT_WEATHER).assertIsDisplayed()
-        rule.onNodeWithTag(TestTags.TEMPERATURE_TEXT).assertTextEquals("${testWeather().temp}°C")
+        rule.onNodeWithTag(TestTags.CurrentWeather).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.TempText).assertTextEquals("${testWeather().temp}°C")
     }
 
     @Test
     fun error_state_is_handled_by_displayed_a_snackbar() {
         rule.setContent {
             WeatherScreen(
-                state =
-                    WeatherScreenState(
-                        isLoading = false,
-                        errorMessage = "Failed. Try again",
-                    ),
+                state = WeatherScreenState(
+                    isLoading = false,
+                    errorMessage = "Failed. Try again"
+                )
             )
         }
-        rule.onNodeWithTag(TestTags.SNACKBAR).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.Snackbar).assertIsDisplayed()
     }
 }

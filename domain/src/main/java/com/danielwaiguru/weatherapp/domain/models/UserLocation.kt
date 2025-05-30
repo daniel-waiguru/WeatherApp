@@ -24,6 +24,8 @@
 
 package com.danielwaiguru.weatherapp.domain.models
 
+
+
 interface UserLocation {
     val latitude: Double
     val longitude: Double

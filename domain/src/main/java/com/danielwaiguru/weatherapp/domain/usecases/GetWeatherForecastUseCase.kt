@@ -32,7 +32,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class GetWeatherForecastUseCase(
-    private val weatherRepository: WeatherRepository,
+    private val weatherRepository: WeatherRepository
 ) {
     suspend operator fun invoke(userLocation: UserLocation): Flow<ResultWrapper<List<WeatherForecast>>> {
         return weatherRepository.getWeatherForecast(userLocation)
@@ -41,7 +41,7 @@ class GetWeatherForecastUseCase(
                     is ResultWrapper.Error -> {
                         ResultWrapper.Error(
                             data = result.data?.distinctBy { it.day },
-                            errorMessage = result.errorMessage,
+                            errorMessage = result.errorMessage
                         )
                     }
                     is ResultWrapper.PendingRemoteData -> {

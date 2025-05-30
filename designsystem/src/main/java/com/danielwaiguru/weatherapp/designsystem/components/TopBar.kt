@@ -49,12 +49,12 @@ fun TopAppBar(
     onNavIconPressed: (() -> Unit)? = null,
     navigationIcon: ImageVector? = null,
     title: String,
-    actions: @Composable RowScope.() -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
             Text(
-                text = title,
+                text = title
             )
         },
         modifier = modifier,
@@ -63,12 +63,12 @@ fun TopAppBar(
                 IconButton(onClick = onNavIconPressed) {
                     Icon(
                         imageVector = navigationIcon,
-                        contentDescription = stringResource(id = R.string.nav_icon_content_desc),
+                        contentDescription = stringResource(id = R.string.nav_icon_content_desc)
                     )
                 }
             }
         },
-        actions = actions,
+        actions = actions
     )
 }
 
@@ -85,7 +85,7 @@ fun TopAppBarPreview() {
                 IconButton(onClick = {}) {
                     Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
                 }
-            },
+            }
         )
     }
 }

@@ -38,27 +38,25 @@ import com.danielwaiguru.weatherapp.domain.utils.getDayName
 import java.util.Date
 import java.util.Locale
 
-fun CoordinatesDto.toCoordinatesEntity(): CoordinatesEntity =
-    CoordinatesEntity(
-        latitude = latitude,
-        longitude = longitude,
-    )
+fun CoordinatesDto.toCoordinatesEntity(): CoordinatesEntity = CoordinatesEntity(
+    latitude = latitude,
+    longitude = longitude
+)
 
-fun WeatherEntity.toWeather(): Weather =
-    Weather(
-        description = description,
-        icon = icon,
-        id = id,
-        userLocation = coordinates,
-        city = city,
-        country = country,
-        conditionId = conditionId,
-        temp = temp,
-        tempMin = tempMin,
-        tempMax = tempMax,
-        date = date,
-        lastUpdateAt = lastUpdateAt,
-    )
+fun WeatherEntity.toWeather(): Weather = Weather(
+    description = description,
+    icon = icon,
+    id = id,
+    userLocation = coordinates,
+    city = city,
+    country = country,
+    conditionId = conditionId,
+    temp = temp,
+    tempMin = tempMin,
+    tempMax = tempMax,
+    date = date,
+    lastUpdateAt = lastUpdateAt
+)
 
 fun ForecastResponse.toForecastEntity(): List<ForecastEntity> {
     return list
@@ -71,21 +69,19 @@ fun ForecastResponse.toForecastEntity(): List<ForecastEntity> {
                 id = null,
                 date = weather.date,
                 temp = weather.main.temp,
-                conditionId = weatherInfo.id,
+                conditionId = weatherInfo.id
             )
         }
 }
 
-fun ForecastEntity.toWeatherForecast(): WeatherForecast =
-    WeatherForecast(
-        id = id!!,
-        date = date,
-        temp = temp,
-        day =
-            date.getDayName().lowercase()
-                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
-        conditionId = conditionId,
-    )
+fun ForecastEntity.toWeatherForecast(): WeatherForecast = WeatherForecast(
+    id = id!!,
+    date = date,
+    temp = temp,
+    day = date.getDayName().lowercase()
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
+    conditionId = conditionId
+)
 
 fun WeatherDto.toWeatherEntity(): WeatherEntity {
     val weatherInfo = weather[0]
@@ -101,6 +97,6 @@ fun WeatherDto.toWeatherEntity(): WeatherEntity {
         tempMin = main.tempMin,
         tempMax = main.tempMax,
         date = date,
-        lastUpdateAt = System.currentTimeMillis(),
+        lastUpdateAt = System.currentTimeMillis()
     )
 }

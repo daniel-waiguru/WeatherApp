@@ -33,5 +33,5 @@ data class CoordinatesDto(
     @SerialName("lat")
     override val latitude: Double,
     @SerialName("lon")
-    override val longitude: Double,
-) : UserLocation
+    override val longitude: Double
+): UserLocation

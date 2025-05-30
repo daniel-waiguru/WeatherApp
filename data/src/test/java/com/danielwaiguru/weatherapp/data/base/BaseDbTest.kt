@@ -35,7 +35,7 @@ import org.junit.Before
 import org.junit.Rule
 
 abstract class BaseDbTest {
-    @get:Rule
+    @get: Rule
     val rule = InstantTaskExecutorRule()
 
     @get:Rule
@@ -45,13 +45,12 @@ abstract class BaseDbTest {
     @Before
     open fun setup() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db =
-            Room.inMemoryDatabaseBuilder(
-                context,
-                WeatherAppDatabase::class.java,
-            )
-                .allowMainThreadQueries()
-                .build()
+        db = Room.inMemoryDatabaseBuilder(
+            context,
+            WeatherAppDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .build()
     }
 
     @After

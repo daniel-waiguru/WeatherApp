@@ -29,21 +29,19 @@ import kotlinx.serialization.Serializable
 
 sealed class ResultWrapper<T>(
     val data: T? = null,
-    val errorMessage: String? = null,
+    val errorMessage: String? = null
 ) {
     class Success<T>(data: T) : ResultWrapper<T>(data)
-
     class Error<T>(
         errorMessage: String?,
-        data: T? = null,
+        data: T? = null
     ) : ResultWrapper<T>(data, errorMessage)
 
     class PendingRemoteData<T>(data: T? = null) : ResultWrapper<T>(data)
 }
-
 @Serializable
 data class ErrorResponse(
     @SerialName("cod")
     val code: Int,
-    val message: String,
+    val message: String
 )

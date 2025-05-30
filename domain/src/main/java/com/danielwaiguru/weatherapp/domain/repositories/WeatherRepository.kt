@@ -32,10 +32,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
     suspend fun getCurrentWeather(
-        userLocation: UserLocation,
+        userLocation: UserLocation
     ): Flow<ResultWrapper<Weather?>>
 
     suspend fun getWeatherForecast(
-        userLocation: UserLocation,
+        userLocation: UserLocation
     ): Flow<ResultWrapper<List<WeatherForecast>>>
 }

@@ -35,5 +35,5 @@ data class ForecastResponse(
     val code: String,
     val message: Int,
     val list: List<WeatherDto>,
-    val city: CityDto,
+    val city: CityDto
 )

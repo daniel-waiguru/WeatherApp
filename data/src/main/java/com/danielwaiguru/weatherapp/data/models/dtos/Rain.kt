@@ -28,5 +28,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Rain(
-    val `1h`: Double? = null,
+    val `1h`: Double? = null
 )

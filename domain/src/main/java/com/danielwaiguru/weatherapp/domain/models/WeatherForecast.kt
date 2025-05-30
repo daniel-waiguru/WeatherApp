@@ -29,5 +29,5 @@ data class WeatherForecast(
     val date: Long,
     val temp: Double,
     val day: String,
-    val conditionId: Int,
+    val conditionId: Int
 )
