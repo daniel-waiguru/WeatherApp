@@ -144,7 +144,7 @@ fun WeatherScreen(
                 state.isLoadingWithNoData -> {
                     ProgressIndicator(
                         modifier = Modifier
-                            .fillMaxSize(),
+                            .align(Alignment.Center),
                     )
                 }
 
