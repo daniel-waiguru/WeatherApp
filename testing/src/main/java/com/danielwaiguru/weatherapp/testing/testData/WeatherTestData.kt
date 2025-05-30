@@ -59,7 +59,6 @@ fun testWeather(
     tempMax = 26.27,
     date = date,
     lastUpdateAt = lastUpdatedAt
-
 )
 
 fun testForecast(
@@ -91,7 +90,6 @@ fun testWeatherEntity() = WeatherEntity(
     tempMax = 96.97,
     date = 9056,
     lastUpdateAt = 1277
-
 )
 
 fun testForecastEntity(

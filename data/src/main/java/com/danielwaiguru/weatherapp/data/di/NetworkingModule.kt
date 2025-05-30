@@ -47,15 +47,14 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkingModule {
     private const val REQUEST_TIMEOUT_S = 20L
 
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun provideHttpClient(
         @ApplicationContext appContext: Context
@@ -87,14 +86,16 @@ internal object NetworkingModule {
             )
             .build()
     }
+
     @Provides
     @Singleton
     internal fun provideJson(): Json = Json {
         ignoreUnknownKeys = true
     }
+
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
@@ -108,8 +109,8 @@ internal object NetworkingModule {
     }
 
     @[
-        Singleton
-        Provides
+    Singleton
+    Provides
     ]
     internal fun apiServiceBuilder(retrofit: Retrofit): WeatherAppApiService {
         return retrofit.create(WeatherAppApiService::class.java)

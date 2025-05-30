@@ -37,16 +37,16 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @InstallIn(ViewModelComponent::class)
 object UseCasesModule {
     @[
-        Provides
-        ViewModelScoped
+    Provides
+    ViewModelScoped
     ]
     fun provideGetCurrentWeatherUseCase(
         weatherRepository: WeatherRepository
     ): GetCurrentWeatherUseCase = GetCurrentWeatherUseCase(weatherRepository)
 
     @[
-        Provides
-        ViewModelScoped
+    Provides
+    ViewModelScoped
     ]
     fun provideGetWeatherForecastUseCase(
         weatherRepository: WeatherRepository

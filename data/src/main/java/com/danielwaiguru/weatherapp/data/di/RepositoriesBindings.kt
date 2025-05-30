@@ -36,8 +36,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoriesBindings {
     @[
-        Binds
-        Singleton
+    Binds
+    Singleton
     ]
     internal abstract fun bindWeatherRepository(
         weatherRepositoryImpl: WeatherRepositoryImpl
