@@ -25,7 +25,6 @@
 package com.danielwaiguru.weatherapp.data.utils
 
 import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.first
@@ -46,7 +45,6 @@ inline fun <ResultType, RequestType> networkBoundResource(
             }
 
         try {
-            delay(2000)
             saveFetchResult(fetch())
             pendingRemoteData.cancel()
             query().collect { send(ResultWrapper.Success(it)) }

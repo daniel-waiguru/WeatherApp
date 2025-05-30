@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.exclude
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -41,7 +40,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -49,6 +50,9 @@ import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -88,13 +92,16 @@ fun WeatherRoute(
             Modifier
                 .fillMaxSize(),
         state = uiState,
+        onRefresh = viewModel::onRefresh
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherScreen(
     modifier: Modifier = Modifier,
     state: WeatherScreenState,
+    onRefresh: () -> Unit
 ) {
     val snackbarHostState =
         remember {
@@ -115,111 +122,120 @@ fun WeatherScreen(
         },
         contentWindowInsets = ScaffoldDefaults.contentWindowInsets.exclude(WindowInsets.statusBars),
     ) { paddingValues ->
-
-        Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+        val pullToRefreshState = rememberPullToRefreshState()
+        PullToRefreshBox(
+            state = pullToRefreshState,
+            isRefreshing = state.isRefreshing,
+            onRefresh = onRefresh,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            indicator = {
+                Indicator(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .statusBarsPadding(),
+                    isRefreshing = true,
+                    state = pullToRefreshState
+                )
+            }
         ) {
             when {
                 state.isLoadingWithNoData -> {
-                    Box(
-                        contentAlignment = Alignment.Center,
+                    ProgressIndicator(
                         modifier =
                             Modifier
-                                .fillMaxSize(),
-                    ) {
-                        ProgressIndicator(
-                            modifier =
-                                Modifier
-                                    .align(Alignment.Center),
-                        )
-                    }
-                }
-                state.currentWeather != null -> {
-                    val weatherCondition by remember(state.currentWeather.conditionId) {
-                        derivedStateOf { state.currentWeather.conditionId.getWeatherCondition() }
-                    }
-                    CurrentWeatherComponent(
-                        weather = state.currentWeather,
-                        weatherCondition = weatherCondition,
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.45f)
-                                .testTag(TestTags.CURRENT_WEATHER),
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .background(weatherCondition.backgroundColor),
-                    ) {
-                        TempItem(
-                            temp = state.currentWeather.tempMin,
-                            text = stringResource(id = R.string.min),
-                            modifier =
-                                Modifier
-                                    .padding(10.dp),
-                        )
-                        TempItem(
-                            temp = state.currentWeather.temp,
-                            text = stringResource(id = R.string.current),
-                            modifier =
-                                Modifier
-                                    .padding(10.dp),
-                        )
-                        TempItem(
-                            temp = state.currentWeather.tempMax,
-                            text = stringResource(id = R.string.max),
-                            modifier =
-                                Modifier
-                                    .padding(10.dp),
-                        )
-                    }
-                    HorizontalDivider(
-                        modifier =
-                            Modifier
-                                .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    WeatherForecastComponent(
-                        forecasts = state.forecasts,
-                        modifier =
-                            Modifier
-                                .weight(1f)
-                                .fillMaxWidth()
-                                .background(weatherCondition.backgroundColor),
+                                .align(Alignment.Center),
                     )
                 }
+                state.currentWeather != null -> WeatherView(
+                    state = state,
+                    modifier = Modifier
+                        .fillMaxSize()
+                )
             }
         }
     }
 }
 
 @Composable
-fun WeatherForecastComponent(
+private fun WeatherView(
     modifier: Modifier = Modifier,
+    state: WeatherScreenState
+) {
+    state.currentWeather?.let { currentWeather ->
+        val weatherCondition by remember(currentWeather.conditionId) {
+            derivedStateOf { currentWeather.conditionId.getWeatherCondition() }
+        }
+
+        LazyColumn(
+            modifier = modifier
+                .background(weatherCondition.backgroundColor)
+        ) {
+            item {
+                CurrentWeatherComponent(
+                    weather = currentWeather,
+                    weatherCondition = weatherCondition,
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .fillParentMaxHeight(0.45f)
+                            .testTag(TestTags.CURRENT_WEATHER),
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(weatherCondition.backgroundColor),
+                ) {
+                    TempItem(
+                        temp = state.currentWeather.tempMin,
+                        text = stringResource(id = R.string.min),
+                        modifier =
+                            Modifier
+                                .padding(10.dp),
+                    )
+                    TempItem(
+                        temp = state.currentWeather.temp,
+                        text = stringResource(id = R.string.current),
+                        modifier =
+                            Modifier
+                                .padding(10.dp),
+                    )
+                    TempItem(
+                        temp = state.currentWeather.tempMax,
+                        text = stringResource(id = R.string.max),
+                        modifier =
+                            Modifier
+                                .padding(10.dp),
+                    )
+                }
+            }
+            item {
+                HorizontalDivider(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+            weatherForecastSection(state.forecasts)
+        }
+    }
+}
+
+private fun LazyListScope.weatherForecastSection(
     forecasts: List<WeatherForecast>,
 ) {
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement =
-            Arrangement
-                .spacedBy(Dimensions.PaddingMedium),
-    ) {
-        items(forecasts, key = { it.id }) { forecast ->
-            ForecastItem(
-                forecast = forecast,
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
-            )
-        }
+    items(forecasts, key = { it.id }) { forecast ->
+        ForecastItem(
+            forecast = forecast,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp, vertical = Dimensions.PaddingSmall),
+        )
     }
 }
 
@@ -266,7 +282,7 @@ private fun ForecastItem(
 
 @DevicePreviews
 @Composable
-fun ForecastItemPreview() {
+private fun ForecastItemPreview() {
     WeatherAppTheme {
         ForecastItem(
             forecast =
@@ -381,7 +397,7 @@ private fun TempItem(
 
 @DevicePreviews
 @Composable
-fun TempItemPreview() {
+private fun TempItemPreview() {
     WeatherAppTheme {
         TempItem(
             temp = 12.0,

@@ -42,121 +42,136 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherViewModel
-    @Inject
-    constructor(
-        private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
-        private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
-        private val locationService: LocationService,
-    ) : ViewModel() {
-        private val _currentWeatherUIState = MutableStateFlow(WeatherScreenState())
-        val currentWeatherUIState: StateFlow<WeatherScreenState> = _currentWeatherUIState.asStateFlow()
+class WeatherViewModel @Inject constructor(
+    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
+    private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
+    private val locationService: LocationService,
+) : ViewModel() {
+    private val _currentWeatherUIState = MutableStateFlow(WeatherScreenState())
+    val currentWeatherUIState: StateFlow<WeatherScreenState> = _currentWeatherUIState.asStateFlow()
 
-        init {
-            getCurrentLocation()
-        }
+    init {
+        getCurrentLocation()
+    }
 
-        private fun getWeatherForecast(userLocation: UserLocation) {
-            viewModelScope.launch {
-                getWeatherForecastUseCase(userLocation)
-                    .onEach { result ->
-                        when (result) {
-                            is ResultWrapper.Error ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = false,
-                                        errorMessage = result.errorMessage,
-                                        forecasts = result.data ?: emptyList(),
-                                    )
-                                }
-                            is ResultWrapper.PendingRemoteData ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = true,
-                                        errorMessage = null,
-                                        forecasts = result.data ?: emptyList(),
-                                    )
-                                }
-                            is ResultWrapper.Success ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = false,
-                                        errorMessage = null,
-                                        forecasts = result.data ?: emptyList(),
-                                    )
-                                }
-                        }
-                    }.launchIn(this)
-            }
-        }
-
-        private fun getCurrentWeather(userLocation: UserLocation) {
-            viewModelScope.launch {
-                getCurrentWeatherUseCase(userLocation)
-                    .onEach { result ->
-                        when (result) {
-                            is ResultWrapper.Error ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = false,
-                                        errorMessage = result.errorMessage,
-                                        currentWeather = result.data,
-                                    )
-                                }
-                            is ResultWrapper.PendingRemoteData ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = true,
-                                        errorMessage = null,
-                                        currentWeather = result.data,
-                                    )
-                                }
-                            is ResultWrapper.Success ->
-                                _currentWeatherUIState.update { currentState ->
-                                    currentState.copy(
-                                        isLoading = false,
-                                        errorMessage = null,
-                                        currentWeather = result.data,
-                                    )
-                                }
-                        }
-                    }.launchIn(this)
-            }
-        }
-
-        private fun getCurrentLocation() {
-            viewModelScope.launch {
-                _currentWeatherUIState.update { currentState ->
-                    currentState.copy(
-                        isLoading = true,
-                        errorMessage = null,
-                    )
-                }
-                when (val userLocationResult = locationService.getCurrentLocation()) {
-                    is ResultWrapper.Error -> {
-                        _currentWeatherUIState.update { currentState ->
-                            currentState.copy(
-                                isLoading = false,
-                                errorMessage = userLocationResult.errorMessage,
-                            )
-                        }
-                    }
-                    is ResultWrapper.PendingRemoteData -> Unit
-                    is ResultWrapper.Success -> {
-                        if (userLocationResult.data == null) {
+    private fun getWeatherForecast(userLocation: UserLocation) {
+        viewModelScope.launch {
+            getWeatherForecastUseCase(userLocation)
+                .onEach { result ->
+                    when (result) {
+                        is ResultWrapper.Error ->
                             _currentWeatherUIState.update { currentState ->
                                 currentState.copy(
                                     isLoading = false,
-                                    errorMessage = "No location found",
+                                    isRefreshing = false,
+                                    errorMessage = result.errorMessage,
+                                    forecasts = result.data ?: emptyList(),
                                 )
                             }
-                            return@launch
-                        }
-                        val userLocation = userLocationResult.data!!
-                        getCurrentWeather(userLocation)
-                        getWeatherForecast(userLocation)
+
+                        is ResultWrapper.PendingRemoteData ->
+                            _currentWeatherUIState.update { currentState ->
+                                currentState.copy(
+                                    isLoading = true,
+                                    errorMessage = null,
+                                    forecasts = result.data ?: emptyList(),
+                                )
+                            }
+
+                        is ResultWrapper.Success ->
+                            _currentWeatherUIState.update { currentState ->
+                                currentState.copy(
+                                    isLoading = false,
+                                    isRefreshing = false,
+                                    errorMessage = null,
+                                    forecasts = result.data ?: emptyList(),
+                                )
+                            }
                     }
+                }.launchIn(this)
+        }
+    }
+
+    private fun getCurrentWeather(userLocation: UserLocation) {
+        viewModelScope.launch {
+            getCurrentWeatherUseCase(userLocation)
+                .onEach { result ->
+                    when (result) {
+                        is ResultWrapper.Error ->
+                            _currentWeatherUIState.update { currentState ->
+                                currentState.copy(
+                                    isLoading = false,
+                                    errorMessage = result.errorMessage,
+                                    currentWeather = result.data,
+                                )
+                            }
+
+                        is ResultWrapper.PendingRemoteData ->
+                            _currentWeatherUIState.update { currentState ->
+                                currentState.copy(
+                                    isLoading = true,
+                                    errorMessage = null,
+                                    currentWeather = result.data,
+                                )
+                            }
+
+                        is ResultWrapper.Success ->
+                            _currentWeatherUIState.update { currentState ->
+                                currentState.copy(
+                                    isLoading = false,
+                                    errorMessage = null,
+                                    currentWeather = result.data,
+                                )
+                            }
+                    }
+                }.launchIn(this)
+        }
+    }
+
+    private fun getCurrentLocation() {
+        viewModelScope.launch {
+            _currentWeatherUIState.update { currentState ->
+                currentState.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                )
+            }
+            when (val userLocationResult = locationService.getCurrentLocation()) {
+                is ResultWrapper.Error -> {
+                    _currentWeatherUIState.update { currentState ->
+                        currentState.copy(
+                            isLoading = false,
+                            errorMessage = userLocationResult.errorMessage,
+                        )
+                    }
+                }
+
+                is ResultWrapper.PendingRemoteData -> Unit
+                is ResultWrapper.Success -> {
+                    if (userLocationResult.data == null) {
+                        _currentWeatherUIState.update { currentState ->
+                            currentState.copy(
+                                isLoading = false,
+                                errorMessage = "No location found",
+                            )
+                        }
+                        return@launch
+                    }
+                    val userLocation = userLocationResult.data!!
+                    getCurrentWeather(userLocation)
+                    getWeatherForecast(userLocation)
                 }
             }
         }
     }
+
+    fun onRefresh() {
+        _currentWeatherUIState.update { currentState ->
+            currentState.copy(
+                isRefreshing = true,
+                errorMessage = null,
+            )
+        }
+        getCurrentLocation()
+    }
+}

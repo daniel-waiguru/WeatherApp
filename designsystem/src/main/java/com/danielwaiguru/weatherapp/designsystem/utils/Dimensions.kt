@@ -35,6 +35,7 @@ object Dimensions {
     val BodyMedium = 14.sp
     val BodyLarge = 16.sp
     val BodySmall = 12.sp
+    val PaddingSmall = 4.dp
     val PaddingMedium = 16.dp
     val PaddingLarge = 30.dp
 }
