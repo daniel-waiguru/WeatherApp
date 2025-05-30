@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Create local.properties file
+      - name: Create secrets.properties file
         env:
           SECRET_PROPERTIES: ${{secrets.SECRET_PROPERTIES}}
         run: echo $SECRET_PROPERTIES > data/secrets.properties
