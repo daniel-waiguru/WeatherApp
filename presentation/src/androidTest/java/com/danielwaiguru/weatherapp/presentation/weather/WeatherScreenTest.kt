@@ -76,4 +76,15 @@ class WeatherScreenTest {
         }
         rule.onNodeWithTag(TestTags.SNACKBAR_TAG).assertIsDisplayed()
     }
+
+    @Test
+    fun isRefreshing_state_is_handled_by_displaying_progress_indicator() {
+        rule.setContent {
+            WeatherScreen(
+                state = WeatherScreenState(isLoading = false, isRefreshing = true),
+                onRefresh = {}
+            )
+        }
+        rule.onNodeWithTag(TestTags.PULL_TO_REFRESH_INDICATOR_TAG).assertIsDisplayed()
+    }
 }

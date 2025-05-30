@@ -40,9 +40,9 @@ internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk = 34
+        compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
         defaultConfig {
-            minSdk = 24
+            minSdk = libs.findVersion("minSdk").get().toString().toInt()
             buildTypes {
                 getByName("release") {
                     isMinifyEnabled = true
