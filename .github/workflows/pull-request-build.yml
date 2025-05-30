@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
       [ main ]
+
+concurrency:
+  group: ${{ github.workflow }} - ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +32,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Create local.properties file
+        env:
+          SECRET_PROPERTIES: ${{secrets.SECRET_PROPERTIES}}
+        run: echo $SECRET_PROPERTIES > data/secrets.properties
 
       - name: Run ktlintCheck on the codebase
         run: ./gradlew ktlintCheck
