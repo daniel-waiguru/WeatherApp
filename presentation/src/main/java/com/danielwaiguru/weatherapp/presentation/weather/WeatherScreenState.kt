@@ -29,6 +29,7 @@ import com.danielwaiguru.weatherapp.domain.models.WeatherForecast
 
 data class WeatherScreenState(
     private val isLoading: Boolean = false,
+    val isRefreshing: Boolean = false,
     val currentWeather: Weather? = null,
     val errorMessage: String? = null,
     val forecasts: List<WeatherForecast> = emptyList(),

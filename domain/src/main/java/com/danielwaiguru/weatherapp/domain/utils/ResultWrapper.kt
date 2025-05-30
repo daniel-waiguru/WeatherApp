@@ -32,7 +32,6 @@ sealed class ResultWrapper<T>(
     val errorMessage: String? = null,
 ) {
     class Success<T>(data: T) : ResultWrapper<T>(data)
-
     class Error<T>(
         errorMessage: String?,
         data: T? = null,
@@ -40,7 +39,6 @@ sealed class ResultWrapper<T>(
 
     class PendingRemoteData<T>(data: T? = null) : ResultWrapper<T>(data)
 }
-
 @Serializable
 data class ErrorResponse(
     @SerialName("cod")

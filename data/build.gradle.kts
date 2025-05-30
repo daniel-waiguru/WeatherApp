@@ -31,10 +31,20 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
 }
 
+apply(from = "secrets.properties")
+
 android {
     namespace = "com.danielwaiguru.weatherapp.data"
     buildFeatures {
         buildConfig = true
+    }
+    buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "APP_ID", "\"${properties["appId"]}\"")
+        }
+        getByName("release") {
+            buildConfigField("String", "APP_ID", "\"${properties["appId"]}\"")
+        }
     }
 }
 

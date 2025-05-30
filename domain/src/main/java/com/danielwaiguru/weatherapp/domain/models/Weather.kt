@@ -43,7 +43,6 @@ data class Weather(
         val name: String,
         val country: String,
     )
-
     data class Temperature(
         val temp: Double,
         val tempMin: Double,

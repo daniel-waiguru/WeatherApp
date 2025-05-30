@@ -45,13 +45,12 @@ abstract class BaseDbTest {
     @Before
     open fun setup() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        db =
-            Room.inMemoryDatabaseBuilder(
-                context,
-                WeatherAppDatabase::class.java,
-            )
-                .allowMainThreadQueries()
-                .build()
+        db = Room.inMemoryDatabaseBuilder(
+            context,
+            WeatherAppDatabase::class.java,
+        )
+            .allowMainThreadQueries()
+            .build()
     }
 
     @After

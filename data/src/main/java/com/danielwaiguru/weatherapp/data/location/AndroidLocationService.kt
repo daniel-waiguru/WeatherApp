@@ -40,89 +40,88 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
-internal class AndroidLocationService
-    @Inject
-    constructor(
-        @ApplicationContext private val context: Context,
-    ) : LocationService {
-        private val locationManager by lazy {
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+internal class AndroidLocationService @Inject constructor(
+    @ApplicationContext private val context: Context,
+) : LocationService {
+    private val locationManager by lazy {
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    }
+    private val fusedLocationProviderClient by lazy {
+        LocationServices.getFusedLocationProviderClient(context)
+    }
+    override val isGpsEnabled: Boolean
+        get() {
+            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         }
-        private val fusedLocationProviderClient by lazy {
-            LocationServices.getFusedLocationProviderClient(context)
-        }
-        override val isGpsEnabled: Boolean
-            get() {
-                return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                    locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-            }
 
-        @SuppressLint("MissingPermission")
-        override suspend fun getCurrentLocation(): ResultWrapper<UserLocation?> {
-            if (isGpsEnabled.not()) {
-                return ResultWrapper.Error(
-                    errorMessage = "Failed to get location. Enable gps services",
-                )
-            }
-            if (hasLocationPermission().not()) {
-                return ResultWrapper.Error(
-                    errorMessage = "Failed to get location. Please grant location permission.",
-                )
-            }
-            return suspendCancellableCoroutine { continuation ->
-                fusedLocationProviderClient.lastLocation
-                    .apply {
-                        if (isComplete) {
-                            if (isSuccessful) {
-                                continuation.resume(
-                                    ResultWrapper.Success(
-                                        CoordinatesEntity(
-                                            latitude = result.latitude,
-                                            longitude = result.longitude,
-                                        ),
-                                    ),
-                                )
-                            } else {
-                                continuation.resume(
-                                    ResultWrapper.Error(
-                                        errorMessage = exception?.message,
-                                    ),
-                                )
-                            }
-                            return@suspendCancellableCoroutine
-                        }
-                        addOnSuccessListener {
+    @SuppressLint("MissingPermission")
+    override suspend fun getCurrentLocation(): ResultWrapper<UserLocation?> {
+        if (isGpsEnabled.not()) {
+            return ResultWrapper.Error(
+                errorMessage = "Failed to get location. Enable gps services",
+            )
+        }
+        if (hasLocationPermission().not()) {
+            return ResultWrapper.Error(
+                errorMessage = "Failed to get location. Please grant location permission.",
+            )
+        }
+        return suspendCancellableCoroutine { continuation ->
+            fusedLocationProviderClient.lastLocation
+                .apply {
+                    if (isComplete) {
+                        if (isSuccessful) {
                             continuation.resume(
                                 ResultWrapper.Success(
-                                    if (it != null) {
-                                        CoordinatesEntity(
-                                            latitude = it.latitude,
-                                            longitude = it.longitude,
-                                        )
-                                    } else {
-                                        null
-                                    },
+                                    CoordinatesEntity(
+                                        latitude = result.latitude,
+                                        longitude = result.longitude,
+                                    ),
                                 ),
                             )
-                        }
-                        addOnFailureListener {
-                            Timber.i(it)
+                        } else {
                             continuation.resume(
                                 ResultWrapper.Error(
-                                    errorMessage = it.message,
+                                    errorMessage = exception?.message,
                                 ),
                             )
                         }
-                        addOnCanceledListener {
-                            continuation.cancel()
-                        }
+                        return@suspendCancellableCoroutine
                     }
-            }
-        }
+                    addOnSuccessListener {
+                        continuation.resume(
+                            ResultWrapper.Success(
+                                if (it != null) {
+                                    CoordinatesEntity(
+                                        latitude = it.latitude,
+                                        longitude = it.longitude,
+                                    )
+                                } else {
+                                    null
+                                },
 
-        private fun hasLocationPermission(): Boolean {
-            return context.checkSelfPermission(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ) == PackageManager.PERMISSION_GRANTED
+                            ),
+                        )
+                    }
+                    addOnFailureListener {
+                        Timber.i(it)
+                        continuation.resume(
+                            ResultWrapper.Error(
+                                errorMessage = it.message,
+                            ),
+                        )
+                    }
+                    addOnCanceledListener {
+                        continuation.cancel()
+                    }
+                }
         }
     }
+
+    private fun hasLocationPermission(): Boolean {
+        return context.checkSelfPermission(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+}

@@ -57,10 +57,9 @@ import com.google.accompanist.permissions.rememberPermissionState
 fun PermissionsRoute(onNavigateToWeather: () -> Unit) {
     PermissionsScreen(
         onNavigateToWeather = onNavigateToWeather,
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(horizontal = 12.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 12.dp),
     )
 }
 
@@ -70,10 +69,9 @@ fun PermissionsScreen(
     onNavigateToWeather: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val locationPermissionsState =
-        rememberPermissionState(
-            permission = Manifest.permission.ACCESS_FINE_LOCATION,
-        )
+    val locationPermissionsState = rememberPermissionState(
+        permission = Manifest.permission.ACCESS_FINE_LOCATION,
+    )
 
     LaunchedEffect(key1 = locationPermissionsState.status) {
         if (locationPermissionsState.status.isGranted) {
@@ -87,19 +85,17 @@ fun PermissionsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 title = stringResource(id = R.string.grant_permissions),
             )
         },
         modifier = modifier,
     ) { padding ->
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -110,10 +106,9 @@ fun PermissionsScreen(
             LottieAnimation(
                 composition = composition,
                 progress = { animationState.progress },
-                modifier =
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .size(300.dp),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .size(300.dp),
                 contentScale = ContentScale.Fit,
             )
             PrimaryButton(
@@ -121,9 +116,8 @@ fun PermissionsScreen(
                 onClick = {
                     locationPermissionsState.launchPermissionRequest()
                 },
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
             )
         }
     }

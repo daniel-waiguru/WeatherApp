@@ -43,9 +43,7 @@ object LocalDatabaseModule {
     Provides
     Singleton
     ]
-    internal fun provideWeatherAppDatabase(
-        @ApplicationContext appContext: Context,
-    ) =
+    internal fun provideWeatherAppDatabase(@ApplicationContext appContext: Context) =
         Room.databaseBuilder(
             appContext,
             WeatherAppDatabase::class.java,

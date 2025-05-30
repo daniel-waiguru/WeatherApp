@@ -24,8 +24,8 @@
 
 package com.danielwaiguru.weatherapp.data.sources.remote.api
 
-import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
 import com.danielwaiguru.weatherapp.data.models.responses.ForecastResponse
+import com.danielwaiguru.weatherapp.data.models.dtos.WeatherDto
 import com.danielwaiguru.weatherapp.data.sources.remote.utils.ApiEndpoints.CURRENT_WEATHER_ENDPOINT
 import com.danielwaiguru.weatherapp.data.sources.remote.utils.ApiEndpoints.WEATHER_FORECAST_ENDPOINT
 import retrofit2.http.GET

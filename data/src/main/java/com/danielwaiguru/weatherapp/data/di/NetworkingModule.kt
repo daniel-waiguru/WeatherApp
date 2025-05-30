@@ -59,22 +59,19 @@ internal object NetworkingModule {
     internal fun provideHttpClient(
         @ApplicationContext appContext: Context,
     ): OkHttpClient {
-        val logging =
-            HttpLoggingInterceptor().apply {
-                level =
-                    if (BuildConfig.DEBUG) {
-                        HttpLoggingInterceptor.Level.BODY
-                    } else {
-                        HttpLoggingInterceptor.Level.NONE
-                    }
+        val logging = HttpLoggingInterceptor().apply {
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
             }
-        val chuckerInterceptor =
-            ChuckerInterceptor.Builder(appContext)
-                .collector(ChuckerCollector(appContext))
-                .maxContentLength(250_000L)
-                .redactHeaders(emptySet())
-                .alwaysReadResponseBody(true)
-                .build()
+        }
+        val chuckerInterceptor = ChuckerInterceptor.Builder(appContext)
+            .collector(ChuckerCollector(appContext))
+            .maxContentLength(250_000L)
+            .redactHeaders(emptySet())
+            .alwaysReadResponseBody(true)
+            .build()
         return OkHttpClient.Builder()
             .readTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
             .connectTimeout(REQUEST_TIMEOUT_S, TimeUnit.SECONDS)
@@ -92,10 +89,9 @@ internal object NetworkingModule {
 
     @Provides
     @Singleton
-    internal fun provideJson(): Json =
-        Json {
-            ignoreUnknownKeys = true
-        }
+    internal fun provideJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
 
     @[
     Singleton

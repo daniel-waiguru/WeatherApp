@@ -42,37 +42,49 @@ class WeatherScreenTest {
         rule.setContent {
             WeatherScreen(
                 state = WeatherScreenState(isLoading = true),
+                onRefresh = {},
             )
         }
-        rule.onNodeWithTag(TestTags.PROGRESS_INDICATOR).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.PROGRESS_INDICATOR_TAG).assertIsDisplayed()
     }
 
     @Test
     fun current_weather_is_displayed_when_its_not_null() {
         rule.setContent {
             WeatherScreen(
-                state =
-                    WeatherScreenState(
-                        isLoading = false,
-                        currentWeather = testWeather(),
-                    ),
+                state = WeatherScreenState(
+                    isLoading = false,
+                    currentWeather = testWeather(),
+                ),
+                onRefresh = {},
             )
         }
-        rule.onNodeWithTag(TestTags.CURRENT_WEATHER).assertIsDisplayed()
-        rule.onNodeWithTag(TestTags.TEMPERATURE_TEXT).assertTextEquals("${testWeather().temp}°C")
+        rule.onNodeWithTag(TestTags.CURRENT_WEATHER_COMPONENT_TAG).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.TEMP_TEXT_TAG).assertTextEquals("${testWeather().temp}°C")
     }
 
     @Test
     fun error_state_is_handled_by_displayed_a_snackbar() {
         rule.setContent {
             WeatherScreen(
-                state =
-                    WeatherScreenState(
-                        isLoading = false,
-                        errorMessage = "Failed. Try again",
-                    ),
+                state = WeatherScreenState(
+                    isLoading = false,
+                    errorMessage = "Failed. Try again",
+                ),
+                onRefresh = {},
             )
         }
-        rule.onNodeWithTag(TestTags.SNACKBAR).assertIsDisplayed()
+        rule.onNodeWithTag(TestTags.SNACKBAR_TAG).assertIsDisplayed()
+    }
+
+    @Test
+    fun isRefreshing_state_is_handled_by_displaying_progress_indicator() {
+        rule.setContent {
+            WeatherScreen(
+                state = WeatherScreenState(isLoading = false, isRefreshing = true),
+                onRefresh = {},
+            )
+        }
+        rule.onNodeWithTag(TestTags.PULL_TO_REFRESH_INDICATOR_TAG).assertIsDisplayed()
     }
 }

@@ -41,9 +41,8 @@ fun ProgressIndicator(
     color: Color = MaterialTheme.colorScheme.primary,
 ) {
     CircularProgressIndicator(
-        modifier =
-            modifier
-                .testTag(TestTags.PROGRESS_INDICATOR),
+        modifier = modifier
+            .testTag(TestTags.PROGRESS_INDICATOR_TAG),
         color = color,
         strokeWidth = stockWidth,
     )
