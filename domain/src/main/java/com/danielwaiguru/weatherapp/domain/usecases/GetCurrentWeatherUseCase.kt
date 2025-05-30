@@ -31,7 +31,7 @@ import com.danielwaiguru.weatherapp.domain.utils.ResultWrapper
 import kotlinx.coroutines.flow.Flow
 
 class GetCurrentWeatherUseCase(
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
 ) {
     suspend operator fun invoke(userLocation: UserLocation): Flow<ResultWrapper<Weather?>> {
         return weatherRepository.getCurrentWeather(userLocation)

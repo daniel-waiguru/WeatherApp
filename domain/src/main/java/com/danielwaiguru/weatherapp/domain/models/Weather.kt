@@ -36,16 +36,16 @@ data class Weather(
     val tempMin: Double,
     val tempMax: Double,
     val date: Long,
-    val lastUpdateAt: Long
+    val lastUpdateAt: Long,
 ) {
     data class City(
         val id: Int,
         val name: String,
-        val country: String
+        val country: String,
     )
     data class Temperature(
         val temp: Double,
         val tempMin: Double,
-        val tempMax: Double
+        val tempMax: Double,
     )
 }

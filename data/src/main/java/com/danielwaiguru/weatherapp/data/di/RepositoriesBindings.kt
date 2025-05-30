@@ -40,6 +40,6 @@ abstract class RepositoriesBindings {
     Singleton
     ]
     internal abstract fun bindWeatherRepository(
-        weatherRepositoryImpl: WeatherRepositoryImpl
+        weatherRepositoryImpl: WeatherRepositoryImpl,
     ): WeatherRepository
 }

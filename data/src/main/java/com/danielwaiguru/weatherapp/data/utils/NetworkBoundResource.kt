@@ -34,7 +34,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
     crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    crossinline shouldFetch: (ResultType) -> Boolean = { true }
+    crossinline shouldFetch: (ResultType) -> Boolean = { true },
 ) = channelFlow {
     val data = query().first()
 

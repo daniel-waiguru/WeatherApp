@@ -41,7 +41,7 @@ interface LocalDataSource {
 }
 
 internal class RoomDataSource @Inject constructor(
-    private val weatherDao: WeatherDao
+    private val weatherDao: WeatherDao,
 ) : LocalDataSource {
     override suspend fun saveWeather(weatherEntity: WeatherEntity) {
         weatherDao.upsertCurrentWeather(weatherEntity)

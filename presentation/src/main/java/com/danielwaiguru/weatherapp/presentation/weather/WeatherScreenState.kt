@@ -32,7 +32,7 @@ data class WeatherScreenState(
     val isRefreshing: Boolean = false,
     val currentWeather: Weather? = null,
     val errorMessage: String? = null,
-    val forecasts: List<WeatherForecast> = emptyList()
+    val forecasts: List<WeatherForecast> = emptyList(),
 ) {
     val isLoadingWithNoData: Boolean
         get() = isLoading && currentWeather == null

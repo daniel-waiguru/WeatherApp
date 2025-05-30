@@ -48,8 +48,8 @@ fun PrimaryButton(
     onClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(
         top = 15.dp,
-        bottom = 15.dp
-    )
+        bottom = 15.dp,
+    ),
 ) {
     Button(
         onClick = onClick,
@@ -57,10 +57,10 @@ fun PrimaryButton(
         modifier = modifier
             .testTag(TestTags.PRIMARY_BUTTON_TAG),
         shape = shape,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
     ) {
         Text(
-            text = text
+            text = text,
         )
     }
 }
@@ -74,7 +74,7 @@ private fun PrimaryButtonPreview() {
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp)
+                .padding(10.dp),
         )
     }
 }

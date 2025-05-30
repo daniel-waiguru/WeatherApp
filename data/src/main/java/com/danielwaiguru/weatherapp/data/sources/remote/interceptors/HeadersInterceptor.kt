@@ -33,7 +33,7 @@ internal class HeadersInterceptor : Interceptor {
         val newRequest = interceptedRequest.newBuilder()
             .header(
                 "Accept",
-                "application/json"
+                "application/json",
             )
             .build()
         return chain.proceed(newRequest)

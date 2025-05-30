@@ -40,7 +40,7 @@ import java.util.Locale
 
 fun CoordinatesDto.toCoordinatesEntity(): CoordinatesEntity = CoordinatesEntity(
     latitude = latitude,
-    longitude = longitude
+    longitude = longitude,
 )
 
 fun WeatherEntity.toWeather(): Weather = Weather(
@@ -55,7 +55,7 @@ fun WeatherEntity.toWeather(): Weather = Weather(
     tempMin = tempMin,
     tempMax = tempMax,
     date = date,
-    lastUpdateAt = lastUpdateAt
+    lastUpdateAt = lastUpdateAt,
 )
 
 fun ForecastResponse.toForecastEntity(): List<ForecastEntity> {
@@ -69,7 +69,7 @@ fun ForecastResponse.toForecastEntity(): List<ForecastEntity> {
                 id = null,
                 date = weather.date,
                 temp = weather.main.temp,
-                conditionId = weatherInfo.id
+                conditionId = weatherInfo.id,
             )
         }
 }
@@ -80,7 +80,7 @@ fun ForecastEntity.toWeatherForecast(): WeatherForecast = WeatherForecast(
     temp = temp,
     day = date.getDayName().lowercase()
         .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() },
-    conditionId = conditionId
+    conditionId = conditionId,
 )
 
 fun WeatherDto.toWeatherEntity(): WeatherEntity {
@@ -97,6 +97,6 @@ fun WeatherDto.toWeatherEntity(): WeatherEntity {
         tempMin = main.tempMin,
         tempMax = main.tempMax,
         date = date,
-        lastUpdateAt = System.currentTimeMillis()
+        lastUpdateAt = System.currentTimeMillis(),
     )
 }

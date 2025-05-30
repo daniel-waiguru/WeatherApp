@@ -54,14 +54,14 @@ class WeatherViewModelTest : BaseViewModelTest() {
         viewModel = WeatherViewModel(
             getCurrentWeatherUseCase,
             getWeatherForecastUseCase,
-            locationService
+            locationService,
         )
     }
 
     @Test
     fun test_when_fetch_location_fails_state_is_updated_to_stop_loading() = runTest {
         locationService.setLocationResult(
-            ResultWrapper.Error(errorMessage = "Failed to get location")
+            ResultWrapper.Error(errorMessage = "Failed to get location"),
         )
         val collectJob = launch(UnconfinedTestDispatcher()) {
             viewModel.currentWeatherUIState.collect()
@@ -74,7 +74,7 @@ class WeatherViewModelTest : BaseViewModelTest() {
     @Test
     fun test_when_get_current_Weather_fails_state_is_updated_with_error() = runTest {
         weatherRepository.setWeatherResult(
-            ResultWrapper.Error("Failed")
+            ResultWrapper.Error("Failed"),
         )
         val collectJob = launch(UnconfinedTestDispatcher()) {
             viewModel.currentWeatherUIState.collect()
@@ -88,7 +88,7 @@ class WeatherViewModelTest : BaseViewModelTest() {
     @Test
     fun test_when_get_forecast_Weather_fails_state_is_updated_with_error() = runTest {
         weatherRepository.setForecastResult(
-            ResultWrapper.Error("Failed")
+            ResultWrapper.Error("Failed"),
         )
         val collectJob = launch(UnconfinedTestDispatcher()) {
             viewModel.currentWeatherUIState.collect()

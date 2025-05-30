@@ -47,7 +47,7 @@ object LocalDatabaseModule {
         Room.databaseBuilder(
             appContext,
             WeatherAppDatabase::class.java,
-            DB_NAME
+            DB_NAME,
         ).fallbackToDestructiveMigration().build()
 
     @[

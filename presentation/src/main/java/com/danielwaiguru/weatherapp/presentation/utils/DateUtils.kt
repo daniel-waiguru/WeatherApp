@@ -33,11 +33,11 @@ object DateUtils {
         return try {
             val outDateFormat = SimpleDateFormat(
                 "d MMM, yyyy, HH:mm",
-                Locale.getDefault()
+                Locale.getDefault(),
             )
             val outTimeFormat = SimpleDateFormat(
                 "HH:mm",
-                Locale.getDefault()
+                Locale.getDefault(),
             )
             if (DateUtils.isToday(timeInMillis)) {
                 outTimeFormat.format(timeInMillis)

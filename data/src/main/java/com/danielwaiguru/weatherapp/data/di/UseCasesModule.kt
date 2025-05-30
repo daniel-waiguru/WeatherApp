@@ -41,7 +41,7 @@ object UseCasesModule {
     ViewModelScoped
     ]
     fun provideGetCurrentWeatherUseCase(
-        weatherRepository: WeatherRepository
+        weatherRepository: WeatherRepository,
     ): GetCurrentWeatherUseCase = GetCurrentWeatherUseCase(weatherRepository)
 
     @[
@@ -49,6 +49,6 @@ object UseCasesModule {
     ViewModelScoped
     ]
     fun provideGetWeatherForecastUseCase(
-        weatherRepository: WeatherRepository
+        weatherRepository: WeatherRepository,
     ): GetWeatherForecastUseCase = GetWeatherForecastUseCase(weatherRepository)
 }

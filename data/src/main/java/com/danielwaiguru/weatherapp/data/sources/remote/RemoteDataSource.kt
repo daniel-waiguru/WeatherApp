@@ -32,17 +32,17 @@ import javax.inject.Inject
 interface RemoteDataSource {
     suspend fun getCurrentWeather(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
     ): WeatherResponse
 
     suspend fun getWeatherForecast(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
     ): ForecastResponse
 }
 
 internal class RetrofitDataSource @Inject constructor(
-    private val apiService: WeatherAppApiService
+    private val apiService: WeatherAppApiService,
 ) : RemoteDataSource {
     override suspend fun getCurrentWeather(latitude: Double, longitude: Double): WeatherResponse =
         apiService.getCurrentWeather(latitude, longitude)

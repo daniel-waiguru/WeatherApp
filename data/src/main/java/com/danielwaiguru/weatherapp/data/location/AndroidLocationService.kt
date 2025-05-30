@@ -41,7 +41,7 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 
 internal class AndroidLocationService @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
 ) : LocationService {
     private val locationManager by lazy {
         context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -59,12 +59,12 @@ internal class AndroidLocationService @Inject constructor(
     override suspend fun getCurrentLocation(): ResultWrapper<UserLocation?> {
         if (isGpsEnabled.not()) {
             return ResultWrapper.Error(
-                errorMessage = "Failed to get location. Enable gps services"
+                errorMessage = "Failed to get location. Enable gps services",
             )
         }
         if (hasLocationPermission().not()) {
             return ResultWrapper.Error(
-                errorMessage = "Failed to get location. Please grant location permission."
+                errorMessage = "Failed to get location. Please grant location permission.",
             )
         }
         return suspendCancellableCoroutine { continuation ->
@@ -76,15 +76,15 @@ internal class AndroidLocationService @Inject constructor(
                                 ResultWrapper.Success(
                                     CoordinatesEntity(
                                         latitude = result.latitude,
-                                        longitude = result.longitude
-                                    )
-                                )
+                                        longitude = result.longitude,
+                                    ),
+                                ),
                             )
                         } else {
                             continuation.resume(
                                 ResultWrapper.Error(
-                                    errorMessage = exception?.message
-                                )
+                                    errorMessage = exception?.message,
+                                ),
                             )
                         }
                         return@suspendCancellableCoroutine
@@ -95,21 +95,21 @@ internal class AndroidLocationService @Inject constructor(
                                 if (it != null) {
                                     CoordinatesEntity(
                                         latitude = it.latitude,
-                                        longitude = it.longitude
+                                        longitude = it.longitude,
                                     )
                                 } else {
                                     null
-                                }
+                                },
 
-                            )
+                            ),
                         )
                     }
                     addOnFailureListener {
                         Timber.i(it)
                         continuation.resume(
                             ResultWrapper.Error(
-                                errorMessage = it.message
-                            )
+                                errorMessage = it.message,
+                            ),
                         )
                     }
                     addOnCanceledListener {
@@ -121,7 +121,7 @@ internal class AndroidLocationService @Inject constructor(
 
     private fun hasLocationPermission(): Boolean {
         return context.checkSelfPermission(
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
         ) == PackageManager.PERMISSION_GRANTED
     }
 }

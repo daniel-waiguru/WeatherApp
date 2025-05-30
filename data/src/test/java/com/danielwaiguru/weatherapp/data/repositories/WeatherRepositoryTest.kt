@@ -57,7 +57,7 @@ class WeatherRepositoryTest {
         weatherRepository = WeatherRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
-            ioDispatcher = UnconfinedTestDispatcher()
+            ioDispatcher = UnconfinedTestDispatcher(),
         )
     }
 

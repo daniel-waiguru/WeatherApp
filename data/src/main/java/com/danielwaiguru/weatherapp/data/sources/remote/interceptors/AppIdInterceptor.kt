@@ -34,7 +34,7 @@ class AppIdInterceptor : Interceptor {
             .addQueryParameter("appid", "bb90efd61c3112b077246f518207d544")
             .build()
         return chain.proceed(
-            request.newBuilder().url(url).build()
+            request.newBuilder().url(url).build(),
         )
     }
 }

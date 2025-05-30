@@ -44,7 +44,7 @@ internal abstract class DataSourceModule {
     Binds
     ]
     internal abstract fun bindRemoteDataSource(
-        retrofitDataSource: RetrofitDataSource
+        retrofitDataSource: RetrofitDataSource,
     ): RemoteDataSource
 
     @[
@@ -52,7 +52,7 @@ internal abstract class DataSourceModule {
     Binds
     ]
     internal abstract fun bindLocalDataSource(
-        roomDataSource: RoomDataSource
+        roomDataSource: RoomDataSource,
     ): LocalDataSource
 
     @[
@@ -60,6 +60,6 @@ internal abstract class DataSourceModule {
     Binds
     ]
     internal abstract fun bindLocationService(
-        androidLocationService: AndroidLocationService
+        androidLocationService: AndroidLocationService,
     ): LocationService
 }

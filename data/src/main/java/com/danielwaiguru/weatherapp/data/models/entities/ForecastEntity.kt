@@ -32,5 +32,5 @@ data class ForecastEntity(
     val id: Int? = null,
     val date: Long,
     val temp: Double,
-    val conditionId: Int
+    val conditionId: Int,
 )

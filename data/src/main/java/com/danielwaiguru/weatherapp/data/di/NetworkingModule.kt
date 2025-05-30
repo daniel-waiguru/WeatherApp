@@ -57,7 +57,7 @@ internal object NetworkingModule {
     Provides
     ]
     internal fun provideHttpClient(
-        @ApplicationContext appContext: Context
+        @ApplicationContext appContext: Context,
     ): OkHttpClient {
         val logging = HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
@@ -82,7 +82,7 @@ internal object NetworkingModule {
             .dispatcher(
                 Dispatcher().apply {
                     maxRequestsPerHost = 8
-                }
+                },
             )
             .build()
     }
@@ -99,7 +99,7 @@ internal object NetworkingModule {
     ]
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        json: Json
+        json: Json,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -36,20 +36,20 @@ import com.danielwaiguru.weatherapp.designsystem.R
 private val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+    certificates = R.array.com_google_android_gms_fonts_certs,
 )
 
 val poppinsFontName = GoogleFont("Poppins")
 
 val fontFamily = FontFamily(
-    Font(googleFont = poppinsFontName, fontProvider = provider)
+    Font(googleFont = poppinsFontName, fontProvider = provider),
 )
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    )
+        fontSize = 16.sp,
+    ),
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,

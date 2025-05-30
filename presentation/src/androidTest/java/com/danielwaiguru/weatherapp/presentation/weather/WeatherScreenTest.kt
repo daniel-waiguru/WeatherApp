@@ -42,7 +42,7 @@ class WeatherScreenTest {
         rule.setContent {
             WeatherScreen(
                 state = WeatherScreenState(isLoading = true),
-                onRefresh = {}
+                onRefresh = {},
             )
         }
         rule.onNodeWithTag(TestTags.PROGRESS_INDICATOR_TAG).assertIsDisplayed()
@@ -54,9 +54,9 @@ class WeatherScreenTest {
             WeatherScreen(
                 state = WeatherScreenState(
                     isLoading = false,
-                    currentWeather = testWeather()
+                    currentWeather = testWeather(),
                 ),
-                onRefresh = {}
+                onRefresh = {},
             )
         }
         rule.onNodeWithTag(TestTags.CURRENT_WEATHER_COMPONENT_TAG).assertIsDisplayed()
@@ -69,9 +69,9 @@ class WeatherScreenTest {
             WeatherScreen(
                 state = WeatherScreenState(
                     isLoading = false,
-                    errorMessage = "Failed. Try again"
+                    errorMessage = "Failed. Try again",
                 ),
-                onRefresh = {}
+                onRefresh = {},
             )
         }
         rule.onNodeWithTag(TestTags.SNACKBAR_TAG).assertIsDisplayed()
@@ -82,7 +82,7 @@ class WeatherScreenTest {
         rule.setContent {
             WeatherScreen(
                 state = WeatherScreenState(isLoading = false, isRefreshing = true),
-                onRefresh = {}
+                onRefresh = {},
             )
         }
         rule.onNodeWithTag(TestTags.PULL_TO_REFRESH_INDICATOR_TAG).assertIsDisplayed()

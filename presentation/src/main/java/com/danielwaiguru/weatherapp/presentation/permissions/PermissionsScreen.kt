@@ -59,7 +59,7 @@ fun PermissionsRoute(onNavigateToWeather: () -> Unit) {
         onNavigateToWeather = onNavigateToWeather,
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 12.dp)
+            .padding(horizontal = 12.dp),
     )
 }
 
@@ -67,10 +67,10 @@ fun PermissionsRoute(onNavigateToWeather: () -> Unit) {
 @Composable
 fun PermissionsScreen(
     onNavigateToWeather: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val locationPermissionsState = rememberPermissionState(
-        permission = Manifest.permission.ACCESS_FINE_LOCATION
+        permission = Manifest.permission.ACCESS_FINE_LOCATION,
     )
 
     LaunchedEffect(key1 = locationPermissionsState.status) {
@@ -79,7 +79,7 @@ fun PermissionsScreen(
         }
     }
     val composition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(R.raw.location_animation)
+        LottieCompositionSpec.RawRes(R.raw.location_animation),
     )
     val animationState = animateLottieCompositionAsState(composition = composition)
     Scaffold(
@@ -87,21 +87,21 @@ fun PermissionsScreen(
             TopAppBar(
                 modifier = Modifier
                     .fillMaxWidth(),
-                title = stringResource(id = R.string.grant_permissions)
+                title = stringResource(id = R.string.grant_permissions),
             )
         },
-        modifier = modifier
+        modifier = modifier,
     ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = stringResource(R.string.location_permission),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             LottieAnimation(
                 composition = composition,
@@ -109,7 +109,7 @@ fun PermissionsScreen(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .size(300.dp),
-                contentScale = ContentScale.Fit
+                contentScale = ContentScale.Fit,
             )
             PrimaryButton(
                 text = stringResource(id = R.string.get_started),
@@ -117,7 +117,7 @@ fun PermissionsScreen(
                     locationPermissionsState.launchPermissionRequest()
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             )
         }
     }

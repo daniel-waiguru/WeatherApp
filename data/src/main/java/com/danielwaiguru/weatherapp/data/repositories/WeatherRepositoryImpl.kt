@@ -50,10 +50,10 @@ import kotlinx.coroutines.withContext
 internal class WeatherRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    @Dispatcher(DispatcherProvider.IO) private val ioDispatcher: CoroutineDispatcher
+    @Dispatcher(DispatcherProvider.IO) private val ioDispatcher: CoroutineDispatcher,
 ) : WeatherRepository {
     override suspend fun getCurrentWeather(
-        userLocation: UserLocation
+        userLocation: UserLocation,
     ): Flow<ResultWrapper<Weather?>> = networkBoundResource(
         query = {
             localDataSource.getCurrentWeather()
@@ -62,7 +62,7 @@ internal class WeatherRepositoryImpl @Inject constructor(
         fetch = {
             remoteDataSource.getCurrentWeather(
                 longitude = userLocation.longitude,
-                latitude = userLocation.latitude
+                latitude = userLocation.latitude,
             )
         },
         saveFetchResult = { weatherResponse ->
@@ -70,11 +70,11 @@ internal class WeatherRepositoryImpl @Inject constructor(
             withContext(NonCancellable) {
                 localDataSource.saveWeather(currentWeatherEntity)
             }
-        }
+        },
     ).flowOn(ioDispatcher)
 
     override suspend fun getWeatherForecast(
-        userLocation: UserLocation
+        userLocation: UserLocation,
     ): Flow<ResultWrapper<List<WeatherForecast>>> = networkBoundResource(
         query = {
             localDataSource.getWeatherForecast()
@@ -83,7 +83,7 @@ internal class WeatherRepositoryImpl @Inject constructor(
         fetch = {
             remoteDataSource.getWeatherForecast(
                 latitude = userLocation.latitude,
-                longitude = userLocation.longitude
+                longitude = userLocation.longitude,
             )
         },
         saveFetchResult = { forecastResponse ->
@@ -91,6 +91,6 @@ internal class WeatherRepositoryImpl @Inject constructor(
             withContext(NonCancellable) {
                 localDataSource.saveWeatherForecast(forecastEntity)
             }
-        }
+        },
     ).flowOn(ioDispatcher)
 }

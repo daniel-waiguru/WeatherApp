@@ -38,8 +38,8 @@ import kotlinx.coroutines.flow.update
 class TestWeatherRepository : WeatherRepository {
     private val weatherResult = MutableStateFlow<ResultWrapper<Weather?>>(
         ResultWrapper.Success(
-            testWeather()
-        )
+            testWeather(),
+        ),
     )
 
     private val forecastResult = MutableStateFlow<ResultWrapper<List<WeatherForecast>>>(
@@ -49,10 +49,10 @@ class TestWeatherRepository : WeatherRepository {
                 testForecast(
                     id = 4,
                     date = 1704803010,
-                    conditionId = 200
-                )
-            )
-        )
+                    conditionId = 200,
+                ),
+            ),
+        ),
     )
     override suspend fun getCurrentWeather(userLocation: UserLocation): Flow<ResultWrapper<Weather?>> {
         return weatherResult
