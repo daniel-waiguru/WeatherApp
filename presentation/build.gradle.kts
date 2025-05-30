@@ -34,7 +34,6 @@ android {
     namespace = "com.danielwaiguru.weatherapp.presentation"
 }
 dependencies {
-    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.accompanist.permissions)
     implementation(libs.kotlinx.json)
     implementation(project(":designsystem"))
