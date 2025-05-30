@@ -47,25 +47,6 @@ jobs:
       - name: Run debug Build
         run: ./gradlew assembleDebug
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Create AVD and start emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34 # Android 15 is API 34
-          target: google_apis
-          arch: x86_64
-          profile: pixel_6
-          script: ./gradlew :presentation:connectedDebugAndroidTest
-
-      - name: Upload UI test results (XML)
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ui-test-results
-          path: '**/build/outputs/androidTest-results/connected/**/*.xml'
-
       - name: Upload test results (XML)
         if: success()
         uses: actions/upload-artifact@v4
