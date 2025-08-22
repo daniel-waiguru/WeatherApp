@@ -44,7 +44,7 @@ minSdk = "24"
 playServicesLocation = "21.3.0"
 androidDesugarJdkLibs = "2.1.5"
 jacoco = "0.8.7"
-kotlinx-json = "1.8.1"
+kotlinx-json = "1.9.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
