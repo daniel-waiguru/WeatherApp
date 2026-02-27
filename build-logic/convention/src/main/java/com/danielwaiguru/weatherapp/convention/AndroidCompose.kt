@@ -34,32 +34,19 @@ import org.gradle.kotlin.dsl.getByType
  * Configure Compose-specific options
  */
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
 ) {
-    commonExtension.apply {
-        buildFeatures {
-            compose = true
-        }
-        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-        packaging {
-            resources {
-                excludes += "/META-INF/{AL2.0,LGPL2.1}"
-                excludes += "META-INF/*.md"
-            }
-        }
-
-        dependencies {
-            val bom = libs.findLibrary("compose-bom").get()
-            add("implementation", platform(bom))
-            add("implementation", libs.findBundle("compose").get())
-
-            add("androidTestImplementation", platform(bom))
-            add("androidTestImplementation", libs.findLibrary("ui-test-junit4").get())
-
-            add("debugImplementation", libs.findBundle("compose-testing-manifest").get())
-        }
+    commonExtension.buildFeatures.apply {
+        compose = true
     }
-//    extensions.configure<ComposeCompilerGradlePluginExtension> {
-//        enableStrongSkippingMode = true
-//    }
+    this@configureAndroidCompose.dependencies {
+        val bom = libs.findLibrary("compose-bom").get()
+        add("implementation", platform(bom))
+        add("implementation", libs.findBundle("compose").get())
+
+        add("androidTestImplementation", platform(bom))
+        add("androidTestImplementation", libs.findLibrary("ui-test-junit4").get())
+
+        add("debugImplementation", libs.findBundle("compose-testing-manifest").get())
+    }
 }

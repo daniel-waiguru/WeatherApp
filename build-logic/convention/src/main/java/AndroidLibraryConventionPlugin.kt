@@ -23,8 +23,8 @@
  */
 
 
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
-import com.android.build.gradle.LibraryExtension
 import com.danielwaiguru.weatherapp.convention.configureKotlinAndroid
 import com.danielwaiguru.weatherapp.convention.configurePrintApksTask
 import com.danielwaiguru.weatherapp.convention.libs
@@ -39,7 +39,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
             }
 
             extensions.configure<LibraryExtension> {
