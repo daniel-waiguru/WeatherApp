@@ -42,7 +42,7 @@ data class WeatherDto(
     val rain: Rain? = null,
     val sys: Sys? = null,
     val timezone: Int? = null,
-    val visibility: Int,
+    val visibility: Int? = null,
     val weather: List<WeatherInfoDto>,
     val wind: Wind,
 )
